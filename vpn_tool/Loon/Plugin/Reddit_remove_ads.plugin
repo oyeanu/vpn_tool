@@ -1,0 +1,13 @@
+#!name = Reddit ads Remove
+#!desc = Filter in-app promotions, block NSFW Prompts。
+#!openUrl = https://apps.apple.com/app/id1064216828
+#!author = xream
+#!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin
+#!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/Reddit.png
+#!date = 2024-01-28 16:25:19
+
+[Script]
+http-response ^https?:\/\/gql(-fed)?\.reddit\.com script-path = https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Resource/Script/Reddit/Reddit_remove_ads.js, requires-body=true, tag = Remove ads
+
+[Mitm]
+hostname = gql.reddit.com, gql-fed.reddit.com

@@ -1,0 +1,31 @@
+#!name = Script-Hub
+#!desc = Convert the Rewrite, Rule and JavaScript resources of other tools into a format that Loon can recognize. Before use, please assign a proxy policy to the [PROXY] item on the details page of this plug-in. Click the link below to view more detailed usage instructions。
+#!openUrl = https://script.hub/
+#!author = 小白脸 xream keywos CKYB
+#!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin
+#!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/Other_icon/120px/Script-Hub.png
+#!date = 2023-12-03 12:53:35
+#!select = ScriptHub notifications, turn notifications on, turn off notifications
+#!select = Enable plugin random icon, enable, disable
+#!select = Replace original plugin icon, enable, disable
+#!select = Plug-in random icon collection, Doraemon(100P), Shin-chan(100P), Weslie-Wolffy(100P), Tom-Jerry(100P), Genshin(160P), Shin-Miya(100P), OnePiece(100P), Stitch(100P), Pokemon(112P), PokemonGif(56P), Digimon(56P), Transformers(48P), Maruko-chan(100P), AttackOnTitan(84P), Naruto(284P)
+#!input = Parser_body_max
+#!input = Parser_http_timeout
+
+[General]
+force-http-engine-hosts = script.hub, *.script.hub
+
+[Rule]
+DOMAIN, scripthub.vercel.app, PROXY
+
+[Script]
+http-request ^https?:\/\/script\.hub\/($|edit\/|reload) script-path = https://gitlab.com/lodepuly/script-hub/-/raw/main/script-hub.js, timeout = 30, tag = 前端界面
+
+http-request ^https?:\/\/script\.hub\/file\/_start_\/.+type=(?:qx-rewrite|surge-module|loon-plugin|all-module) script-path = https://gitlab.com/lodepuly/script-hub/-/raw/main/Rewrite-Parser.js, timeout = 30, tag = Rewrite转换
+
+http-request ^https?:\/\/script\.hub\/file\/_start_\/.+type=rule-set script-path = https://gitlab.com/lodepuly/script-hub/-/raw/main/rule-parser.js, timeout = 30, tag = Rule转换
+
+http-request ^https?:\/\/script\.hub\/convert\/ script-path = https://gitlab.com/lodepuly/script-hub/-/raw/main/script-converter.js, timeout = 30, tag = JavaScript转换
+
+[Mitm]
+hostname = script.hub, *.script.hub

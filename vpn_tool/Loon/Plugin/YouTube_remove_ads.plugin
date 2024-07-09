@@ -1,0 +1,29 @@
+#!name = YouTube ads
+#!desc = Remove ads from YouTube videos 。
+#!openUrl = https://apps.apple.com/app/id544007664
+#!author = Maasea VirgilClyne Choler DivineEngine app2smile
+#!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin
+#!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/YouTube.png
+#!date = 2024-06-11 21:59:22
+#!select = Hide upload Button, true, false
+#!select = Hide selection button, true, false
+#!select = Subtitle translation language, zh-Hans, zh-Hant, ja, ko, en, off
+#!select = lyrics translation language, zh-Hans, zh-Hant, ja, ko, en, off
+#select = Enable debug mode, true, false
+
+[Rule]
+AND, ((DOMAIN-SUFFIX, googlevideo.com),  (PROTOCOL, QUIC)), REJECT
+AND, ((DOMAIN-SUFFIX, youtubei.googleapis.com),  (PROTOCOL, QUIC)), REJECT
+
+[Rewrite]
+# 使用reject-dict方法以减少开销
+^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad reject-dict
+
+[Script]
+# YouTube去广告
+http-request ^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|reel\/reel_watch_sequence|get_watch) script-path = https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Resource/Script/YouTube/YouTube_remove_ads/YouTube_remove_ads_request.js, requires-body = true, binary-body-mode = true, tag = YouTube请求
+
+http-response ^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch) script-path = https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Resource/Script/YouTube/YouTube_remove_ads/YouTube_remove_ads_response.js, requires-body = true, binary-body-mode = true, tag = YouTube响应
+
+[Mitm]
+hostname = *.googlevideo.com, youtubei.googleapis.com
