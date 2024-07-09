@@ -15,11 +15,10 @@ Applicable Version: Latest version on App Store
 ##### You should back up your current configuration file before importing: click [Configuration] → [Export] → [Save to "Files"]
 
 
-### Inventory of Configuration Files
+### About Configuration File
 
 
-Simple config - loon://import?sub=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Config/Loon_Simple_Configuration_By_iKeLee.conf
-
+### Simple config 
 This configuration file is designed for simplicity, featuring a single policy group. Its straightforward nature allows for effortless setup and immediate usability.
 
 
