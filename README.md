@@ -2,9 +2,9 @@
 
 
 
-.China Telecom and China Unicom users are advised to select the content of the GitLab [warehouse](https://gitlab.com/lodepuly/vpn_tool) and add it gitlab.comas a direct connection;
-.Do not use a proxy to download files from the [GitLab warehouse](https://gitlab.com/lodepuly/vpn_tool) , as it is likely to encounter human-machine verification and cause the download to fail;
-.Since mobile networks in most areas cannot be directly accessed gitlab.com, mobile users are advised to choose the [GitHub repository](https://github.com/luestr/ProxyResource) and access it through a proxy.
+China Telecom and China Unicom users are advised to select the content of the GitLab [warehouse](https://gitlab.com/lodepuly/vpn_tool) and add it gitlab.comas a direct connection;
+Do not use a proxy to download files from the [GitLab warehouse](https://gitlab.com/lodepuly/vpn_tool) , as it is likely to encounter human-machine verification and cause the download to fail;
+Since mobile networks in most areas cannot be directly accessed gitlab.com, mobile users are advised to choose the [GitHub repository](https://github.com/luestr/ProxyResource) and access it through a proxy.
 
 #### Referenced projects
 
