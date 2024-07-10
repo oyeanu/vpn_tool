@@ -1,0 +1,22 @@
+#!name = Sub-Store
+#!desc = Advanced subscription management tool。
+#!openUrl = https://sub.store
+#!author = Peng-YM
+#!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin
+#!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/Other_icon/120px/Sub-Store.png
+#!select = Node cache validity period, 1 minute, 5 minutes, 10 minutes, 30 minutes, 1 hour, 2 hours, 3 hours, 6 hours, 12 hours, 24 hours, 48 ​​hours, 72 hours
+#!date = 2024-02-23 20:09:25
+
+[Rule]
+DOMAIN, sub-store.vercel.app, PROXY
+DOMAIN, ip-api.com, PROXY
+
+[Script]
+http-request ^https?:\/\/sub\.store\/((download)|api\/(preview|sync|(utils\/node-info))) script-path = https://gitlab.com/sub-store/Sub-Store/-/releases/permalink/latest/downloads/sub-store-1.min.js, requires-body = true, timeout = 120, tag = Sub-Store Core
+
+http-request ^https?:\/\/sub\.store script-path = https://gitlab.com/sub-store/Sub-Store/-/releases/permalink/latest/downloads/sub-store-0.min.js, requires-body = true, timeout = 120, tag = Sub-Store Simple
+
+cron "0 0 1 ? * ?" script-path = https://gitlab.com/sub-store/Sub-Store/-/releases/permalink/latest/downloads/cron-sync-artifacts.min.js, tag = Sub-Store Sync
+
+[Mitm]
+hostname = sub.store
