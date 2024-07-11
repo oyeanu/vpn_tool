@@ -1,5 +1,5 @@
 #!name = Spotify ads Remove
-#!desc = Filter Spotify playback ads, remove random playback, and restore normal display of artist and album lists. It is recommended to log in again and clear the cache, and the sound quality cannot be set to ultra-high. It is only recommended for iOS 15 and above devices。
+#!desc = Filter Spotify playback ads, remove random playback, and restore normal display of artist and album lists. It is recommended to log in again and clear the cache, and the sound quality cannot be set to ultra-high. It is only recommended for iOS 15 and above devices
 #!openUrl = https://apps.apple.com/app/id324684580
 #!author = app2smile
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin

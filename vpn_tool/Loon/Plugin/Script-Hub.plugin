@@ -1,5 +1,5 @@
 #!name = Script-Hub
-#!desc = Convert the Rewrite, Rule and JavaScript resources of other tools into a format that Loon can recognize. Before use, please assign a proxy policy to the [PROXY] item on the details page of this plug-in. Click the link below to view more detailed usage instructions。
+#!desc = Convert the Rewrite, Rule and JavaScript resources of other tools into a format that Loon can recognize. Before use, please assign a proxy policy to the [PROXY] item on the details page of this plug-in. Click the link below to view more detailed usage instructions
 #!openUrl = https://script.hub/
 #!author = xream keywos CKYB
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin

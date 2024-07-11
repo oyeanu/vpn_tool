@@ -1,5 +1,5 @@
 #!name = TikTok Redirect
-#!desc = To remove the TikTok video watermark and customize the unlocking region, you need to configure this plug-in to the node in the corresponding region。
+#!desc = To remove the TikTok video watermark and customize the unlocking region, you need to configure this plug-in to the node in the corresponding region
 #!openUrl = https://apps.apple.com/app/id835599320
 #!author = Keywos
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin

@@ -1,5 +1,5 @@
 #!name = Proxy link detection
-#!desc =To view the agent direction of the target node, click the link below to view how to use it。
+#!desc =To view the agent direction of the target node, click the link below to view how to use it
 #!openUrl = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/Resource/Markdown/NodeLinkCheck/README.md
 #!author = I-am-R-E
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin
