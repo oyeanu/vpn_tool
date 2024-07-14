@@ -45,7 +45,7 @@ Promise.all([ytbTest(),disneyLocation(),nfTest(),daznTest(),parmTest(),discovery
 }).catch (values => {
     console.log("reject:" + values);
     let content = "------------------------------------</br>"+([result["Dazn"],result["Discovery"],result["Paramount"],result["Disney"],result["Netflix"],result["ChatGPT"],result["YouTube"]]).join("</br></br>")
-    content = content + "</br>------------------------------------</br>"+"<font color=#CD5C5C>"+"<b>节点</b> ➟ " + nodeName+ "</font>"
+    content = content + "</br>------------------------------------</br>"+"<font color=#CD5C5C>"+"<b>Node</b> ➟ " + nodeName+ "</font>"
     content =`<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + content + `</p>`
     $done({"title":result["title"],"htmlMessage":content})
 })
