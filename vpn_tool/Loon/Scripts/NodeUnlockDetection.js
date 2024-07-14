@@ -86,7 +86,7 @@ function disneyLocation() {
         $httpClient.post(params, (errormsg,response,data) => {
             console.log("----------disney--------------");
             if (errormsg) {
-                result["Discovery"] = "<b>Disneyᐩ:</b>检测失败 ❗️";
+                result["Discovery"] = "<b>Disneyᐩ:</b>Failed Detection  ❗️";
                 resolve("disney request failed:" + errormsg);
                 return;
             }
@@ -102,15 +102,15 @@ function disneyLocation() {
                         result["Disney"] = "<b>Disneyᐩ:</b> 即将登陆 ➟ "+'⟦'+flags.get(countryCode.toUpperCase())+"⟧ ⚠️"
                         resolve();
                     } else {
-                        result["Disney"] = "<b>Disneyᐩ:</b> 支持 ➟ "+'⟦'+flags.get(countryCode.toUpperCase())+"⟧ 🎉"
+                        result["Disney"] = "<b>Disneyᐩ:</b> Hold Out ➟ "+'⟦'+flags.get(countryCode.toUpperCase())+"⟧ 🎉"
                         resolve({ inSupportedLocation, countryCode });
                     }
                 } else {
-                    result["Disney"] = "<b>Disneyᐩ:</b> 未支持 🚫 ";
+                    result["Disney"] = "<b>Disneyᐩ:</b> Not Supported 🚫 ";
                     resolve();
                 }
             } else {
-                result["Discovery"] = "<b>Disneyᐩ:</b>检测失败 ❗️";
+                result["Discovery"] = "<b>Disneyᐩ:</b>Failed Detection❗️";
                 resolve();
             }
         })
@@ -164,17 +164,17 @@ function ytbTest() {
             console.log("----------YTB--------------");
             if (errormsg) {
                 console.log("YTB request failed:" + errormsg);
-                result["YouTube"] = "<b>YouTube Premium: </b>检测失败 ❗️";
+                result["YouTube"] = "<b>YouTube Premium: </b>Failed Detection❗️";
                 resolve(errormsg);
                 return;
             }
             if (response.status !== 200) {
-                result["YouTube"] = "<b>YouTube Premium: </b>检测失败 ❗️";
+                result["YouTube"] = "<b>YouTube Premium: </b>Failed Detection❗️";
                 resolve(response.status);
             } else {
               console.log("YTB request data:" + response.status);
               if (data.indexOf('Premium is not available in your country') !== -1) {
-                  result["YouTube"] = "<b>YouTube Premium: </b>未支持 🚫"
+                  result["YouTube"] = "<b>YouTube Premium: </b>Not Supported 🚫"
                   resolve("YTB test failed");
               } else if (data.indexOf('Premium is not available in your country') == -1) {
                   let region = ''
@@ -188,10 +188,10 @@ function ytbTest() {
                       region = 'US'
                   }
                   console.log("YTB region:" + region);
-                  result["YouTube"] = "<b>YouTube Premium: </b>支持 "+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🎉"
+                  result["YouTube"] = "<b>YouTube Premium: </b>Hold Out "+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🎉"
                   resolve(region);
               } else {
-                result["YouTube"] = "<b>YouTube Premium: </b>检测超时 🚦";
+                result["YouTube"] = "<b>YouTube Premium: </b>Timeout For Detection 🚦";
                 resolve("timeout");
               }
             }
@@ -223,7 +223,7 @@ function daznTest() {
             console.log("----------DAZN--------------");
             if (errormsg) {
                 console.log("Dazn request error:" + errormsg);
-                result["Dazn"] = "<b>Dazn: </b>检测失败 ❗️";
+                result["Dazn"] = "<b>Dazn: </b>Failed Detection❗️";
                 resolve(errormsg);
                 return;
             }
@@ -234,13 +234,13 @@ function daznTest() {
                 let ret = re.exec(data)
                 if (ret != null && ret.length === 2) {
                     region = ret[1];
-                    result["Dazn"] = "<b>Dazn: </b>支持 "+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🎉";
+                    result["Dazn"] = "<b>Dazn: </b>Hold Out "+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🎉";
                 } else {
-                    result["Dazn"] = "<b>Dazn: </b>未支持 🚫";
+                    result["Dazn"] = "<b>Dazn: </b>Not Supported 🚫";
                 }
                 resolve(region);
             } else {
-                result["Dazn"] = "<b>Dazn: </b>检测失败 ❗️";
+                result["Dazn"] = "<b>Dazn: </b>Failed Detection ❗️";
                 resolve(response.status);
             }
         })
@@ -262,19 +262,19 @@ function parmTest() {
             console.log("----------PARAM--------------");
             if (errormsg) {
                 console.log("Param request error:" + errormsg);
-                result["Paramountᐩ"] = "<b>Paramountᐩ: </b>检测失败 ❗️";
+                result["Paramountᐩ"] = "<b>Paramountᐩ: </b>Failed Detection ❗️";
                 resolve(errormsg);
                 return;
             }
             console.log("param result:" + response.status);
             if (response.status == 200) {
-                result["Paramount"] = "<b>Paramountᐩ: </b>支持 🎉 ";
+                result["Paramount"] = "<b>Paramountᐩ: </b>Hold Out 🎉 ";
                 resolve();
             } else if (response.status == 302) {
-                result["Paramount"] = "<b>Paramountᐩ: </b>未支持 🚫";
+                result["Paramount"] = "<b>Paramountᐩ: </b>Not Supported 🚫";
                 resolve();
             } else {
-                result["Paramount"] = "<b>Paramountᐩ: </b>检测失败 ❗️";
+                result["Paramount"] = "<b>Paramountᐩ: </b>Failed Detection ❗️";
                 resolve();
             }
         })
@@ -317,7 +317,7 @@ function discoveryTest() {
                     console.log("----------Discory--------------");
                     if (emsg) {
                         console.log("Discovery request error:" + errormsg);
-                        result["Discovery"] = "<b>Discoveryᐩ: </b>检测失败 ❗️";
+                        result["Discovery"] = "<b>Discoveryᐩ: </b>Failed Detection ❗️";
                         resolve(emsg);
                         return;
                     }
@@ -326,10 +326,10 @@ function discoveryTest() {
                         let resD = JSON.parse(resData);
                         let locationd = resD["data"]["attributes"]["currentLocationTerritory"];
                         if (locationd == 'us') {
-                            result["Discovery"] = "<b>Discoveryᐩ: </b>支持 🎉 ";
+                            result["Discovery"] = "<b>Discoveryᐩ: </b>Hold Out 🎉 ";
                             resolve();
                         } else {
-                            result["Discovery"] = "<b>Discoveryᐩ: </b>未支持 🚫";
+                            result["Discovery"] = "<b>Discoveryᐩ: </b>Not Supported 🚫";
                             resolve();
                         }
                     } else {
