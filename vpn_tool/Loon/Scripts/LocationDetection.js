@@ -1,8 +1,8 @@
-/* 测试 api
- * 地理位置查询
- * 感谢并修改自https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/geo_location.js
- * 脚本功能：检查节点的地理位置
- * 原作者：XIAO_KOP
+/* Test api
+ * Geographical location inquiry
+ * Thank you and modify from https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/geo_location.js
+ * Script function: check the geographical location of the node
+ * Original Author：XIAO_KOP
 */
 
 // $environment.params with input params
@@ -10,11 +10,11 @@ console.log($environment.params);
 var url = "http://ip-api.com/json/";
 
 /**
- * build 411 版本后 添加$environment.params.nodeInfo对象，表示简单的节点信息
- * 注意：由于安全限制，nodeInfo对象中仅有一下信息
+ * build 411 After the version Add$environment.params.nodeInfoObject，Indicate simple node information
+ * Note: Due to security restrictions，nodeInfoThere is only one information in the object.
  {
     address = "example.com";
-    name = "节点名称";
+    name = "Name of the node";
     port = 12443;
     tls = 1;
     type = Vmess;
@@ -33,17 +33,17 @@ var requestParams = {
 
 var message = ""
 const paras = ["query","as","org","isp","countryCode","city","lon","lat"];
-const paran = ["远端IP地址","远端IP ASN","ASN所属机构","远端ISP","远端IP地区","远端IP城市","远端经度","远端纬度"];
+const paran = ["Far endIPAddress","Far endIP ASN","ASNAffiliated organisation","Far endISP","Remote IP area","Remote IP city","Longitude at the far end","Far-end latitude"];
 
 $httpClient.get(requestParams, (error, response, data) => {
     if (error) {
-        message = "</br></br>🔴 查询超时"
+        message = "</br></br>🔴 Check timeout"
         message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
-        $done({"title": "  地理位置查询", "htmlMessage": message});
+        $done({"title": "Geo location inquiry", "htmlMessage": message});
     } else {
         console.log(data);
         message = data ? json2info(data, paras) : "";
-        $done({"title": "  地理位置查询", "htmlMessage": message});
+        $done({"title": "Geo location inquiry", "htmlMessage": message});
     }
 })
 
@@ -55,7 +55,7 @@ function json2info(cnt, paras) {
         cnt[paras[i]] = paras[i] == "countryCode" ? cnt[paras[i]] + " ⟦" + flags.get(cnt[paras[i]].toUpperCase()) + "⟧" : cnt[paras[i]];
         res = cnt[paras[i]] ? res + "</br><b>" + "<font  color=>" + paran[i] + "</font> : " + "</b>"+ "<font  color=>" + cnt[paras[i]] + "</font></br>" : res;
     }
-    res = res + "-------------------------------" + "</br>" + "<font color=#6959CD>" + "<b>节点</b> ➟ " + $environment.params.node + "</font>";
+    res = res + "-------------------------------" + "</br>" + "<font color=#6959CD>" + "<b>Node</b> ➟ " + $environment.params.node + "</font>";
     res = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + res + `</p>`;
     return res;
 }
