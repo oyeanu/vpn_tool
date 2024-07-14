@@ -1,5 +1,5 @@
 /*
- * Node unlock query
+ * Node Unlock Query
  * Thank you and modify from https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/streaming-ui-check.js
  * Script function: check whether the node supports Dazn/Discovery/Param/Disney/Netflix/ChatGPT/YouTube Unlock service
  * Original author：XIAO_KOP
@@ -26,10 +26,10 @@ let flags = new Map([[ "AC" , "🇦🇨" ] ,["AE","🇦🇪"], [ "AF" , "🇦�
 
 let result = {
     "title": '  Node Unlock query',
-    "YouTube": '<b>YouTube: </b>The test failed,Please try again.� ❗️',
-    "Netflix": '<b>Netflix: </b>The test failed, Please try again. ❗️',
-    "Dazn": "<b>Dazn: </b>The test failed,Please try again. ❗️",
-    "Disney": "<b>Disneyᐩ: </b>The test Failed,Please try again. ❗️",
+    "YouTube": '<b>YouTube: </b>The test Failed,Please try Again.� ❗️',
+    "Netflix": '<b>Netflix: </b>The test Failed, Please try Again. ❗️',
+    "Dazn": "<b>Dazn: </b>The test Failed,Please try Again. ❗️",
+    "Disney": "<b>Disneyᐩ: </b>The test Failed,Please try Again. ❗️",
     "Paramount" : "<b>Paramountᐩ: </b>Failed Detection,Please try Again ❗️",
     "Discovery" : "<b>Discoveryᐩ: </b>Failed Detection，Please try Again ❗️",
 }
@@ -99,7 +99,7 @@ function disneyLocation() {
                         location: { countryCode },
                     } = resData?.extensions?.sdk?.session
                     if (inSupportedLocation == false) {
-                        result["Disney"] = "<b>Disneyᐩ:</b> 即将登陆 ➟ "+'⟦'+flags.get(countryCode.toUpperCase())+"⟧ ⚠️"
+                        result["Disney"] = "<b>Disneyᐩ:</b> Coming Soon ➟ "+'⟦'+flags.get(countryCode.toUpperCase())+"⟧ ⚠️"
                         resolve();
                     } else {
                         result["Disney"] = "<b>Disneyᐩ:</b> Hold Out ➟ "+'⟦'+flags.get(countryCode.toUpperCase())+"⟧ 🎉"
@@ -333,13 +333,13 @@ function discoveryTest() {
                             resolve();
                         }
                     } else {
-                        result["Discovery"] = "<b>Discoveryᐩ: </b>检测失败 ❗️";
+                        result["Discovery"] = "<b>Discoveryᐩ: </b>Detection Failed ❗️";
                         resolve(res.status);
                     }
                 })
 
             } else {
-                result["Discovery"] = "<b>Discoveryᐩ: </b>检测失败 ❗️";
+                result["Discovery"] = "<b>Discoveryᐩ: </b>Detection failed ❗️";
                 resolve(response.status);
             }
         })
@@ -361,15 +361,15 @@ function nfTest() {
             console.log("----------NetFlix--------------");
             if (errormsg) {
                 console.log("NF request failed: " + errormsg);
-                result["Netflix"] = "<b>Netflix: </b>检测失败 ❗️";
+                result["Netflix"] = "<b>Netflix: </b>Detection failed ❗️";
                 resolve(errormsg);
                 return;
             }
             if (response.status == 403) {
-                result["Netflix"] = "<b>Netflix: </b>未支持 🚫"
+                result["Netflix"] = "<b>Netflix: </b>Not Supported 🚫"
                 resolve("403 Not Available");
             } else if (response.status == 404) {
-                result["Netflix"] = "<b>Netflix: </b>支持自制剧集 ⚠️"
+                result["Netflix"] = "<b>Netflix: </b>Support self-made Dramas ⚠️"
                 resolve("404 Not Found");
             } else if (response.status == 200) {
                 console.log("NF request result:" + JSON.stringify(response.headers));
@@ -381,8 +381,8 @@ function nfTest() {
                     ourl = response.headers['x-originating-url']
                 }
                 if (ourl == undefined) {
-                    console.log("未知地区")
-                    result["Netflix"] = "<b>Netflix: </b>完整支持"+arrow+ "⟦未知地区⟧ 🎉"
+                    console.log("Unknown Area")
+                    result["Netflix"] = "<b>Netflix: </b>Full Support"+arrow+ "⟦Unknown Area⟧ 🎉"
                     resolve(region);
                 } else {
                     console.log("X-Originating-URL:" + ourl)
@@ -391,11 +391,11 @@ function nfTest() {
                     if (region == 'title') {
                         region = 'us'
                     }
-                    result["Netflix"] = "<b>Netflix: </b>完整支持"+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🎉"
+                    result["Netflix"] = "<b>Netflix: </b>Full Support"+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🎉"
                     resolve(region);
                 }
             } else {
-                result["Netflix"] = "<b>Netflix: </b>检测失败 ❗️";
+                result["Netflix"] = "<b>Netflix: </b>Detection failed ❗️";
                 resolve(response.status)
             }
         })
@@ -416,9 +416,9 @@ function gptTest() {
             console.log("----------GPT--------------");
             if (errormsg) {
                 console.log("GPT request failed:!!! " + errormsg);
-                result["ChatGPT"] = "<b>ChatGPT: </b>未支持 🚫"
+                result["ChatGPT"] = "<b>ChatGPT: </b>Not Supported 🚫"
                 // resolve(errormsg);
-                resolve("不支持 ChatGPT")
+                resolve("Not Supported ChatGPT")
                 return;
             } 
             let resp = JSON.stringify(data)
@@ -434,7 +434,7 @@ function gptTest() {
                     console.log("----------GPT RegionL--------------");
                     if (emsg) {
                         console.log("GPT RegionL request error:" + errormsg);
-                        result["ChatGPT"] = "<b>ChatGPT: </b>检测失败 ❗️";
+                        result["ChatGPT"] = "<b>ChatGPT: </b>Detection Failed ❗️";
                         resolve(emsg);
                         return;
                     }
@@ -444,25 +444,25 @@ function gptTest() {
                     console.log("ChatGPT Region: "+region)
                     let res = support_countryCodes.indexOf(region)
                     if (res != -1) {
-                        result["ChatGPT"] = "<b>ChatGPT: </b>支持 "+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🎉"
-                        console.log("支持 ChatGPT")
+                        result["ChatGPT"] = "<b>ChatGPT: </b>Support "+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🎉"
+                        console.log("Support ChatGPT")
                         resolve(region)
                     } else {
-                        result["ChatGPT"] = "<b>ChatGPT: </b>未支持 🚫"
-                        console.log("不支持 ChatGPT")
-                        resolve("不支持 ChatGPT")
+                        result["ChatGPT"] = "<b>ChatGPT: </b>Not Supported 🚫"
+                        console.log("Not Supported ChatGPT")
+                        resolve("Not Supported ChatGPT")
                     }
                 })
             } else {
-                result["ChatGPT"] = "<b>ChatGPT: </b>未支持 🚫"
-                console.log("不支持 ChatGPT")
-                resolve("不支持 ChatGPT")
+                result["ChatGPT"] = "<b>ChatGPT: </b>Not Supported 🚫"
+                console.log("Not Supported ChatGPT")
+                resolve("Not Supported ChatGPT")
             }
         })
     })
 }
 
-//google送中
+//google Delivered
 function googleToCN() {
     return new Promise((resolve, reject) => {
         let params = {
@@ -483,15 +483,15 @@ function googleToCN() {
             console.log("----------Google2CN--------------");
             if (errormsg) {
                 console.log("Google2CN request failed:" + errormsg);
-                result["Google2CN"] = "<b>2CN: </b>检测失败 ❗️";
+                result["Google2CN"] = "<b>2CN: </b>Detection Failed ❗️";
                 resolve(errormsg);
                 return;
             }
             if (response.status == 400) {
-                result["Google2CN"] = "<b>2CN: </b>已被送中"
+                result["Google2CN"] = "<b>2CN: </b>Has Been Sent"
                 resolve("404 Not Found");
             } else {
-                result["Google2CN"] = "<b>2CN: </b>未被送中"
+                result["Google2CN"] = "<b>2CN: </b>Not Sent"
                 resolve(response.status);
             }
         })
