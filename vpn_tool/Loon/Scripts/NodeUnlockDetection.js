@@ -26,12 +26,12 @@ let flags = new Map([[ "AC" , "🇦🇨" ] ,["AE","🇦🇪"], [ "AF" , "🇦�
 
 let result = {
     "title": '  Node Unlock query',
-    "YouTube": '<b>YouTube: </b>The test Failed,Please try Again.� ❗️',
-    "Netflix": '<b>Netflix: </b>The test Failed, Please try Again. ❗️',
-    "Dazn": "<b>Dazn: </b>The test Failed,Please try Again. ❗️",
-    "Disney": "<b>Disneyᐩ: </b>The test Failed,Please try Again. ❗️",
-    "Paramount" : "<b>Paramountᐩ: </b>Failed Detection,Please try Again ❗️",
-    "Discovery" : "<b>Discoveryᐩ: </b>Failed Detection，Please try Again ❗️",
+    "YouTube": '<b>YouTube: </b>The test Failed,Please try Again.� 🤪',
+    "Netflix": '<b>Netflix: </b>The test Failed, Please try Again. 🤪',
+    "Dazn": "<b>Dazn: </b>The test Failed,Please try Again. 🤪",
+    "Disney": "<b>Disneyᐩ: </b>The test Failed,Please try Again. 🤪",
+    "Paramount" : "<b>Paramountᐩ: </b>Failed Detection,Please try Again 🤪",
+    "Discovery" : "<b>Discoveryᐩ: </b>Failed Detection，Please try Again 🤪",
 }
 
 let arrow = " ➟ "
@@ -86,7 +86,7 @@ function disneyLocation() {
         $httpClient.post(params, (errormsg,response,data) => {
             console.log("----------disney--------------");
             if (errormsg) {
-                result["Discovery"] = "<b>Disneyᐩ:</b>Failed Detection  ❗️";
+                result["Discovery"] = "<b>Disneyᐩ:</b>Failed Detection  🤪";
                 resolve("disney request failed:" + errormsg);
                 return;
             }
@@ -102,15 +102,15 @@ function disneyLocation() {
                         result["Disney"] = "<b>Disneyᐩ:</b> Coming Soon ➟ "+'⟦'+flags.get(countryCode.toUpperCase())+"⟧ ⚠️"
                         resolve();
                     } else {
-                        result["Disney"] = "<b>Disneyᐩ:</b> Hold Out ➟ "+'⟦'+flags.get(countryCode.toUpperCase())+"⟧ 🎉"
+                        result["Disney"] = "<b>Disneyᐩ:</b> Hold Out ➟ "+'⟦'+flags.get(countryCode.toUpperCase())+"⟧ 🔓"
                         resolve({ inSupportedLocation, countryCode });
                     }
                 } else {
-                    result["Disney"] = "<b>Disneyᐩ:</b> Not Supported 🚫 ";
+                    result["Disney"] = "<b>Disneyᐩ:</b> Not Supported ⛔ ";
                     resolve();
                 }
             } else {
-                result["Discovery"] = "<b>Disneyᐩ:</b>Failed Detection❗️";
+                result["Discovery"] = "<b>Disneyᐩ:</b>Failed Detection🤪";
                 resolve();
             }
         })
@@ -164,17 +164,17 @@ function ytbTest() {
             console.log("----------YTB--------------");
             if (errormsg) {
                 console.log("YTB request failed:" + errormsg);
-                result["YouTube"] = "<b>YouTube Premium: </b>Failed Detection❗️";
+                result["YouTube"] = "<b>YouTube Premium: </b>Failed Detection🤪";
                 resolve(errormsg);
                 return;
             }
             if (response.status !== 200) {
-                result["YouTube"] = "<b>YouTube Premium: </b>Failed Detection❗️";
+                result["YouTube"] = "<b>YouTube Premium: </b>Failed Detection🤪";
                 resolve(response.status);
             } else {
               console.log("YTB request data:" + response.status);
               if (data.indexOf('Premium is not available in your country') !== -1) {
-                  result["YouTube"] = "<b>YouTube Premium: </b>Not Supported 🚫"
+                  result["YouTube"] = "<b>YouTube Premium: </b>Not Supported ⛔"
                   resolve("YTB test failed");
               } else if (data.indexOf('Premium is not available in your country') == -1) {
                   let region = ''
@@ -188,7 +188,7 @@ function ytbTest() {
                       region = 'US'
                   }
                   console.log("YTB region:" + region);
-                  result["YouTube"] = "<b>YouTube Premium: </b>Hold Out "+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🎉"
+                  result["YouTube"] = "<b>YouTube Premium: </b>Hold Out "+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🔓"
                   resolve(region);
               } else {
                 result["YouTube"] = "<b>YouTube Premium: </b>Timeout For Detection 🚦";
@@ -223,7 +223,7 @@ function daznTest() {
             console.log("----------DAZN--------------");
             if (errormsg) {
                 console.log("Dazn request error:" + errormsg);
-                result["Dazn"] = "<b>Dazn: </b>Failed Detection❗️";
+                result["Dazn"] = "<b>Dazn: </b>Failed Detection🤪";
                 resolve(errormsg);
                 return;
             }
@@ -234,13 +234,13 @@ function daznTest() {
                 let ret = re.exec(data)
                 if (ret != null && ret.length === 2) {
                     region = ret[1];
-                    result["Dazn"] = "<b>Dazn: </b>Hold Out "+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🎉";
+                    result["Dazn"] = "<b>Dazn: </b>Hold Out "+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🔓";
                 } else {
-                    result["Dazn"] = "<b>Dazn: </b>Not Supported 🚫";
+                    result["Dazn"] = "<b>Dazn: </b>Not Supported ⛔";
                 }
                 resolve(region);
             } else {
-                result["Dazn"] = "<b>Dazn: </b>Failed Detection ❗️";
+                result["Dazn"] = "<b>Dazn: </b>Failed Detection 🤪";
                 resolve(response.status);
             }
         })
@@ -262,19 +262,19 @@ function parmTest() {
             console.log("----------PARAM--------------");
             if (errormsg) {
                 console.log("Param request error:" + errormsg);
-                result["Paramountᐩ"] = "<b>Paramountᐩ: </b>Failed Detection ❗️";
+                result["Paramountᐩ"] = "<b>Paramountᐩ: </b>Failed Detection 🤪";
                 resolve(errormsg);
                 return;
             }
             console.log("param result:" + response.status);
             if (response.status == 200) {
-                result["Paramount"] = "<b>Paramountᐩ: </b>Hold Out 🎉 ";
+                result["Paramount"] = "<b>Paramountᐩ: </b>Hold Out 🔓 ";
                 resolve();
             } else if (response.status == 302) {
-                result["Paramount"] = "<b>Paramountᐩ: </b>Not Supported 🚫";
+                result["Paramount"] = "<b>Paramountᐩ: </b>Not Supported ⛔";
                 resolve();
             } else {
-                result["Paramount"] = "<b>Paramountᐩ: </b>Failed Detection ❗️";
+                result["Paramount"] = "<b>Paramountᐩ: </b>Failed Detection 🤪";
                 resolve();
             }
         })
@@ -317,7 +317,7 @@ function discoveryTest() {
                     console.log("----------Discory--------------");
                     if (emsg) {
                         console.log("Discovery request error:" + errormsg);
-                        result["Discovery"] = "<b>Discoveryᐩ: </b>Failed Detection ❗️";
+                        result["Discovery"] = "<b>Discoveryᐩ: </b>Failed Detection 🤪";
                         resolve(emsg);
                         return;
                     }
@@ -326,20 +326,20 @@ function discoveryTest() {
                         let resD = JSON.parse(resData);
                         let locationd = resD["data"]["attributes"]["currentLocationTerritory"];
                         if (locationd == 'us') {
-                            result["Discovery"] = "<b>Discoveryᐩ: </b>Hold Out 🎉 ";
+                            result["Discovery"] = "<b>Discoveryᐩ: </b>Hold Out 🔓 ";
                             resolve();
                         } else {
-                            result["Discovery"] = "<b>Discoveryᐩ: </b>Not Supported 🚫";
+                            result["Discovery"] = "<b>Discoveryᐩ: </b>Not Supported ⛔";
                             resolve();
                         }
                     } else {
-                        result["Discovery"] = "<b>Discoveryᐩ: </b>Detection Failed ❗️";
+                        result["Discovery"] = "<b>Discoveryᐩ: </b>Detection Failed 🤪";
                         resolve(res.status);
                     }
                 })
 
             } else {
-                result["Discovery"] = "<b>Discoveryᐩ: </b>Detection failed ❗️";
+                result["Discovery"] = "<b>Discoveryᐩ: </b>Detection failed 🤪";
                 resolve(response.status);
             }
         })
@@ -361,15 +361,15 @@ function nfTest() {
             console.log("----------NetFlix--------------");
             if (errormsg) {
                 console.log("NF request failed: " + errormsg);
-                result["Netflix"] = "<b>Netflix: </b>Detection failed ❗️";
+                result["Netflix"] = "<b>Netflix: </b>Detection failed 🤪";
                 resolve(errormsg);
                 return;
             }
             if (response.status == 403) {
-                result["Netflix"] = "<b>Netflix: </b>Not Supported 🚫"
+                result["Netflix"] = "<b>Netflix: </b>Not Supported ⛔"
                 resolve("403 Not Available");
             } else if (response.status == 404) {
-                result["Netflix"] = "<b>Netflix: </b>Support self-made Dramas ⚠️"
+                result["Netflix"] = "<b>Netflix: </b>Support Self Contant ☢️"
                 resolve("404 Not Found");
             } else if (response.status == 200) {
                 console.log("NF request result:" + JSON.stringify(response.headers));
@@ -382,7 +382,7 @@ function nfTest() {
                 }
                 if (ourl == undefined) {
                     console.log("Unknown Area")
-                    result["Netflix"] = "<b>Netflix: </b>Full Support"+arrow+ "⟦Unknown Area⟧ 🎉"
+                    result["Netflix"] = "<b>Netflix: </b>Full Support"+arrow+ "⟦Unknown Area⟧ 🔓"
                     resolve(region);
                 } else {
                     console.log("X-Originating-URL:" + ourl)
@@ -391,11 +391,11 @@ function nfTest() {
                     if (region == 'title') {
                         region = 'us'
                     }
-                    result["Netflix"] = "<b>Netflix: </b>Full Support"+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🎉"
+                    result["Netflix"] = "<b>Netflix: </b>Full Support"+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🔓"
                     resolve(region);
                 }
             } else {
-                result["Netflix"] = "<b>Netflix: </b>Detection failed ❗️";
+                result["Netflix"] = "<b>Netflix: </b>Detection failed 🤪";
                 resolve(response.status)
             }
         })
@@ -416,7 +416,7 @@ function gptTest() {
             console.log("----------GPT--------------");
             if (errormsg) {
                 console.log("GPT request failed:!!! " + errormsg);
-                result["ChatGPT"] = "<b>ChatGPT: </b>Not Supported 🚫"
+                result["ChatGPT"] = "<b>ChatGPT: </b>Not Supported ⛔"
                 // resolve(errormsg);
                 resolve("Not Supported ChatGPT")
                 return;
@@ -434,7 +434,7 @@ function gptTest() {
                     console.log("----------GPT RegionL--------------");
                     if (emsg) {
                         console.log("GPT RegionL request error:" + errormsg);
-                        result["ChatGPT"] = "<b>ChatGPT: </b>Detection Failed ❗️";
+                        result["ChatGPT"] = "<b>ChatGPT: </b>Detection Failed 🤪";
                         resolve(emsg);
                         return;
                     }
@@ -444,17 +444,17 @@ function gptTest() {
                     console.log("ChatGPT Region: "+region)
                     let res = support_countryCodes.indexOf(region)
                     if (res != -1) {
-                        result["ChatGPT"] = "<b>ChatGPT: </b>Support "+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🎉"
+                        result["ChatGPT"] = "<b>ChatGPT: </b>Support "+arrow+ "⟦"+flags.get(region.toUpperCase())+"⟧ 🔓"
                         console.log("Support ChatGPT")
                         resolve(region)
                     } else {
-                        result["ChatGPT"] = "<b>ChatGPT: </b>Not Supported 🚫"
+                        result["ChatGPT"] = "<b>ChatGPT: </b>Not Supported ⛔"
                         console.log("Not Supported ChatGPT")
                         resolve("Not Supported ChatGPT")
                     }
                 })
             } else {
-                result["ChatGPT"] = "<b>ChatGPT: </b>Not Supported 🚫"
+                result["ChatGPT"] = "<b>ChatGPT: </b>Not Supported ⛔"
                 console.log("Not Supported ChatGPT")
                 resolve("Not Supported ChatGPT")
             }
@@ -483,7 +483,7 @@ function googleToCN() {
             console.log("----------Google2CN--------------");
             if (errormsg) {
                 console.log("Google2CN request failed:" + errormsg);
-                result["Google2CN"] = "<b>2CN: </b>Detection Failed ❗️";
+                result["Google2CN"] = "<b>2CN: </b>Detection Failed 🤪";
                 resolve(errormsg);
                 return;
             }
