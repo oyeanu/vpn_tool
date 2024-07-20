@@ -5,8 +5,17 @@
       <stop offset="100%" style="stop-color:#7a7a7a;stop-opacity:1" />
     </linearGradient>
     <style type="text/css">
-      .button { transition: all 0.3s ease; }
-      .button:hover { transform: scale(1.1); }
+      @keyframes fadeIn {
+        from { opacity: 0.5; }
+        to { opacity: 1; }
+      }
+      .button {
+        opacity: 0.5;
+        transition: opacity 0.3s ease;
+      }
+      .button:hover {
+        animation: fadeIn 0.3s ease-in-out forwards;
+      }
     </style>
   </defs>
 
@@ -40,29 +49,29 @@
   </text>
   
   <a href="https://apps.apple.com/us/app/loon/id1373567447" target="_blank" class="button">
-    <rect x="200" y="520" width="120" height="36" rx="18" ry="18" fill="#6495ED" stroke="#4169E1" stroke-width="2"/>
-    <text x="260" y="542" font-family="Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
+    <rect x="280" y="520" width="120" height="36" rx="18" ry="18" fill="#6495ED" stroke="#4169E1" stroke-width="2"/>
+    <text x="340" y="542" font-family="Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
       Get App
     </text>
   </a>
 
   <a href="https://github.com/oyeanu/vpn_tool/blob/main/config.conf" target="_blank" class="button">
-    <rect x="340" y="520" width="120" height="36" rx="18" ry="18" fill="#6495ED" stroke="#4169E1" stroke-width="2"/>
-    <text x="400" y="542" font-family="Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
+    <rect x="420" y="520" width="120" height="36" rx="18" ry="18" fill="#6495ED" stroke="#4169E1" stroke-width="2"/>
+    <text x="480" y="542" font-family="Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
       Get Config
     </text>
   </a>
 
   <a href="https://ko-fi.com/yourusername" target="_blank" class="button">
-    <rect x="200" y="580" width="120" height="36" rx="18" ry="18" fill="#FF5F5F" stroke="#FF4040" stroke-width="2"/>
-    <text x="260" y="602" font-family="Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
+    <rect x="280" y="580" width="120" height="36" rx="18" ry="18" fill="#FF5F5F" stroke="#FF4040" stroke-width="2"/>
+    <text x="340" y="602" font-family="Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
       Ko-fi
     </text>
   </a>
 
   <a href="https://paypal.me/yourusername" target="_blank" class="button">
-    <rect x="340" y="580" width="120" height="36" rx="18" ry="18" fill="#0079C1" stroke="#00457C" stroke-width="2"/>
-    <text x="400" y="602" font-family="Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
+    <rect x="420" y="580" width="120" height="36" rx="18" ry="18" fill="#0079C1" stroke="#00457C" stroke-width="2"/>
+    <text x="480" y="602" font-family="Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
       PayPal
     </text>
   </a>
