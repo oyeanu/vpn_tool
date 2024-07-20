@@ -2,8 +2,6 @@
   <img src="./loon_tool_banner.svg" alt="Loon Tool Banner">
 </p>
 
-[Rest of your README content]
-
 
 
 ### Warehouse selection
