@@ -1,11 +1,22 @@
 <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffcccc;stop-opacity:1" />
+    </linearGradient>
+    <style type="text/css">
+      .button { transition: all 0.3s ease; }
+      .button:hover { transform: scale(1.1); }
+    </style>
+  </defs>
+
   <rect width="100%" height="100%" fill="transparent"/>
   
-  <text x="50%" y="10%" font-family="Arial, sans-serif" font-size="56" font-weight="bold" fill="#4158D0" text-anchor="middle">
+  <text x="50%" y="10%" font-family="Arial, sans-serif" font-size="56" font-weight="bold" fill="url(#textGradient)" text-anchor="middle">
     Loon Tool
   </text>
   
-  <text x="50%" y="20%" font-family="Arial, sans-serif" font-size="24" fill="#333" text-anchor="middle">
+  <text x="50%" y="20%" font-family="Arial, sans-serif" font-size="24" fill="url(#textGradient)" text-anchor="middle">
     Tools and resources for the Loon app
   </text>
   
@@ -15,11 +26,11 @@
     <image href="https://img.shields.io/github/issues/oyeanu/vpn_tool.svg?style=flat-square" x="150" y="0" height="25" />
   </g>
   
-  <text x="50%" y="40%" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#C850C0" text-anchor="middle">
+  <text x="50%" y="40%" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="url(#textGradient)" text-anchor="middle">
     About Loon App
   </text>
   
-  <text x="50%" y="48%" font-family="Arial, sans-serif" font-size="20" fill="#333" text-anchor="middle">
+  <text x="50%" y="48%" font-family="Arial, sans-serif" font-size="20" fill="url(#textGradient)" text-anchor="middle">
     <tspan x="50%" dy="1.2em">Loon is a powerful network tool for iOS that helps users:</tspan>
     <tspan x="50%" dy="1.5em">• Configure proxy settings easily</tspan>
     <tspan x="50%" dy="1.2em">• Manage network connections</tspan>
@@ -28,17 +39,17 @@
     <tspan x="50%" dy="1.2em">• Apply advanced rules for various scenarios</tspan>
   </text>
   
-  <a href="https://apps.apple.com/us/app/loon/id1373567447" target="_blank">
-    <rect x="200" y="500" width="180" height="40" rx="20" ry="20" fill="#4158D0"/>
-    <text x="290" y="525" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle" dominant-baseline="middle">
-      Click for App
+  <a href="https://apps.apple.com/us/app/loon/id1373567447" target="_blank" class="button">
+    <rect x="260" y="520" width="120" height="36" rx="18" ry="18" fill="#ff9999" stroke="#ff6666" stroke-width="2"/>
+    <text x="320" y="542" font-family="Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
+      Get App
     </text>
   </a>
 
-  <a href="https://github.com/oyeanu/vpn_tool/raw/main/vpn_tool/Loon/Config%20EN/Loon_Simple_Configuration_By_iKeLee.conf" target="_blank">
-    <rect x="420" y="500" width="180" height="40" rx="20" ry="20" fill="#C850C0"/>
-    <text x="510" y="525" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle" dominant-baseline="middle">
-      Click for Config
+  <a href="https://github.com/oyeanu/vpn_tool/blob/main/config.conf" target="_blank" class="button">
+    <rect x="420" y="520" width="120" height="36" rx="18" ry="18" fill="#ff9999" stroke="#ff6666" stroke-width="2"/>
+    <text x="480" y="542" font-family="Arial, sans-serif" font-size="16" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">
+      Get Config
     </text>
   </a>
 </svg>
