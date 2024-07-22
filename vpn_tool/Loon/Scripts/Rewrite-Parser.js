@@ -1,21 +1,23 @@
+Here’s the translation:
+
 /***************************
-支持将 QX重写 Surge模块 Loon插件 解析至Surge Shadowrocket Loon Stash
+Supports parsing QX rewrites, Surge modules, Loon plugins to Surge, Shadowrocket, Loon, and Stash.
 
-远程重写支持多链接输入，链接间用😂连接 可以 重写 模块 插件 混合传入
+Remote rewrites support multiple links input, separated by 😂. Rewrites, modules, and plugins can be mixed.
 
-说明
-原脚本作者@小白脸 脚本修改@chengkongyiban
-感谢@xream 提供的replace-Header.js
-               echo-response.js
-感谢@mieqq 提供的replace-body.js
-插件图标用的 @Keikinn 的 StickerOnScreen项目 以及 @Toperlock 的图标库项目，感谢
+Notes:
+Original script author: @Xiaobailian (Xiaobailian)
+Script modifications: @chengkongyiban
+Thanks to @xream for providing replace-Header.js and echo-response.js
+Thanks to @mieqq for providing replace-body.js
+Plugin icons used are from @Keikinn’s StickerOnScreen project and @Toperlock’s icon library project. Thanks!
 
-项目地址:
+Project Address:
 https://github.com/Script-Hub-Org/Script-Hub
 ***************************/
 
 const script_start = Date.now()
-const JS_NAME = 'Script Hub: 重写转换'
+const JS_NAME = 'Script Hub: Rewrite Conversion'
 const $ = new Env(JS_NAME)
 
 let arg
@@ -24,20 +26,21 @@ if (typeof $argument != 'undefined') {
 } else {
   arg = {}
 }
-// 超时设置 与 script-converter.js 相同
-const HTTP_TIMEOUT = ($.getval('Parser_http_timeout') ?? 20) * 1000
+// Timeout settings, same as in script-converter.js
+const HTTP_TIMEOUT = ($.getval('Parser_http_timeout') ?? 20) * 1000;
 
-const url = $request.url
-const req = url.split(/file\/_start_\//)[1].split(/\/_end_\//)[0]
-const reqArr = req.match('%F0%9F%98%82') ? req.split('%F0%9F%98%82') : [req]
-//$.log("原始链接：" + req);
-const urlArg = url.split(/\/_end_\//)[1]
+const url = $request.url;
+const req = url.split(/file\/_start_\//)[1].split(/\/_end_\//)[0];
+const reqArr = req.match('%F0%9F%98%82') ? req.split('%F0%9F%98%82') : [req];
+// $.log("Original URL: " + req);
+const urlArg = url.split(/\/_end_\//)[1];
 
-//获取参数
-const queryObject = parseQueryString(urlArg)
-//$.log("参数:" + $.toStr(queryObject));
+// Retrieve parameters
+const queryObject = parseQueryString(urlArg);
+// $.log("Parameters: " + $.toStr(queryObject));
 
-//目标app
+
+//Target app
 const targetApp = queryObject.target
 const app = targetApp.split('-')[0]
 const isSurgeiOS = targetApp == 'surge-module'
@@ -50,50 +53,51 @@ const evJsmodi = queryObject.evalScriptmodi
 const evUrlori = queryObject.evalUrlori
 const evUrlmodi = queryObject.evalUrlmodi
 
-let noNtf = queryObject.noNtf ? istrue(queryObject.noNtf) : false //默认开启通知
+let noNtf = queryObject.noNtf ? istrue(queryObject.noNtf) : false //Notifications enabled by default
 
-let localsetNtf = $.lodash_get(arg, 'Notify') || $.getval('ScriptHub通知') || ''
-noNtf = localsetNtf == '开启通知' ? false : localsetNtf == '关闭通知' ? true : noNtf
+let localsetNtf = $.lodash_get(arg, 'Notify') || $.getval('ScriptHub Notification') || ''
+noNtf = localsetNtf == 'Enable notifications' ? false : localsetNtf == 'Disable notifications' ? true : noNtf
 
 let openMsgHtml = istrue(queryObject.openMsgHtml)
 
 noNtf = openMsgHtml ? true : noNtf
 
-let nName = queryObject.n != undefined ? getArgArr(queryObject.n) : null //名字简介
+let nName = queryObject.n != undefined ? getArgArr(queryObject.n) : null // Name and description
 let category = queryObject.category ?? null
 let icon = queryObject.icon ?? null
-let Pin0 = queryObject.y != undefined ? getArgArr(queryObject.y) : null //保留
-let Pout0 = queryObject.x != undefined ? getArgArr(queryObject.x) : null //排除
-let hnAdd = queryObject.hnadd != undefined ? queryObject.hnadd.split(/\s*,\s*/) : null //加
-let hnDel = queryObject.hndel != undefined ? queryObject.hndel.split(/\s*,\s*/) : null //减
-let hnRegDel = queryObject.hnregdel != undefined ? new RegExp(queryObject.hnregdel) : null //正则删除hostname
-let synMitm = istrue(queryObject.synMitm) //将force与mitm同步
+let Pin0 = queryObject.y != undefined ? getArgArr(queryObject.y) : null // Retain
+let Pout0 = queryObject.x != undefined ? getArgArr(queryObject.x) : null // Exclude
+let hnAdd = queryObject.hnadd != undefined ? queryObject.hnadd.split(/\s*,\s*/) : null // Add
+let hnDel = queryObject.hndel != undefined ? queryObject.hndel.split(/\s*,\s*/) : null // Remove
+let hnRegDel = queryObject.hnregdel != undefined ? new RegExp(queryObject.hnregdel) : null // Regex to delete hostname
+let synMitm = istrue(queryObject.synMitm) // Sync force with mitm
 let delNoteSc = istrue(queryObject.del)
-let nCron = queryObject.cron != undefined ? getArgArr(queryObject.cron) : null //替换cron目标
-let ncronexp = queryObject.cronexp != undefined ? queryObject.cronexp.replace(/\./g, ' ').split('+') : null //新cronexp
-let nArgTarget = queryObject.arg != undefined ? getArgArr(queryObject.arg) : null //arg目标
-let nArg = queryObject.argv != undefined ? getArgArr(queryObject.argv) : null //arg参数
+let nCron = queryObject.cron != undefined ? getArgArr(queryObject.cron) : null // Replace cron targets
+let ncronexp = queryObject.cronexp != undefined ? queryObject.cronexp.replace(/\./g, ' ').split('+') : null // New cron expression
+let nArgTarget = queryObject.arg != undefined ? getArgArr(queryObject.arg) : null // Arg targets
+let nArg = queryObject.argv != undefined ? getArgArr(queryObject.argv) : null // Arg parameters
 let nTilesTarget = queryObject.tiles != undefined ? getArgArr(queryObject.tiles) : null
 let ntilescolor = queryObject.tcolor != undefined ? getArgArr(queryObject.tcolor) : null
 let nPolicy = queryObject.policy != undefined ? queryObject.policy : null
-let njsnametarget = queryObject.njsnametarget != undefined ? getArgArr(queryObject.njsnametarget) : null //修改脚本名目标
-let njsname = queryObject.njsname != undefined ? getArgArr(queryObject.njsname) : null //修改脚本名
-let timeoutt = queryObject.timeoutt != undefined ? getArgArr(queryObject.timeoutt) : null //修改超时目标
-let timeoutv = queryObject.timeoutv != undefined ? getArgArr(queryObject.timeoutv) : null //修改超时的值
-let enginet = queryObject.enginet != undefined ? getArgArr(queryObject.enginet) : null //修改引擎目标
-let enginev = queryObject.enginev != undefined ? getArgArr(queryObject.enginev) : null //修改引擎的值
-let jsConverter = queryObject.jsc != undefined ? getArgArr(queryObject.jsc) : null //脚本转换1
-let jsConverter2 = queryObject.jsc2 != undefined ? getArgArr(queryObject.jsc2) : null //脚本转换2
-let compatibilityOnly = istrue(queryObject.compatibilityOnly) //兼容转换
-let keepHeader = istrue(queryObject.keepHeader) //保留mock header
-let jsDelivr = istrue(queryObject.jsDelivr) //开启jsDelivr
-let localText = queryObject.localtext != undefined ? '\n' + queryObject.localtext : '' //纯文本输入
-let ipNoResolve = istrue(queryObject.nore) //ip规则不解析域名
-let sni = queryObject.sni != undefined ? getArgArr(queryObject.sni) : null //sni嗅探
-let sufkeepHeader = keepHeader == true ? '&keepHeader=true' : '' //用于保留header的后缀
-let sufjsDelivr = jsDelivr == true ? '&jsDelivr=true' : '' //用于开启jsDeliver的后缀
+let njsnametarget = queryObject.njsnametarget != undefined ? getArgArr(queryObject.njsnametarget) : null // Script name targets
+let njsname = queryObject.njsname != undefined ? getArgArr(queryObject.njsname) : null // Script names
+let timeoutt = queryObject.timeoutt != undefined ? getArgArr(queryObject.timeoutt) : null // Timeout targets
+let timeoutv = queryObject.timeoutv != undefined ? getArgArr(queryObject.timeoutv) : null // Timeout values
+let enginet = queryObject.enginet != undefined ? getArgArr(queryObject.enginet) : null // Engine targets
+let enginev = queryObject.enginev != undefined ? getArgArr(queryObject.enginev) : null // Engine values
+let jsConverter = queryObject.jsc != undefined ? getArgArr(queryObject.jsc) : null // Script conversion 1
+let jsConverter2 = queryObject.jsc2 != undefined ? getArgArr(queryObject.jsc2) : null // Script conversion 2
+let compatibilityOnly = istrue(queryObject.compatibilityOnly) // Compatibility conversion
+let keepHeader = istrue(queryObject.keepHeader) // Retain mock header
+let jsDelivr = istrue(queryObject.jsDelivr) // Enable jsDelivr
+let localText = queryObject.localtext != undefined ? '\n' + queryObject.localtext : '' // Plain text input
+let ipNoResolve = istrue(queryObject.nore) // IP rules do not resolve domain names
+let sni = queryObject.sni != undefined ? getArgArr(queryObject.sni) : null // SNI sniffing
+let sufkeepHeader = keepHeader == true ? '&keepHeader=true' : '' // Suffix for retaining header
+let sufjsDelivr = jsDelivr == true ? '&jsDelivr=true' : '' // Suffix for enabling jsDelivr
 
-//用于自定义发送请求的请求头
+
+//Used for customizing the request headers for sending requests
 const reqHeaders = { headers: {} }
 
 if (queryObject.headers) {
@@ -109,14 +113,15 @@ if (queryObject.headers) {
     })
 }
 
-//插件图标区域
-const iconStatus = $.getval('启用插件随机图标') ?? '启用'
-const iconReplace = $.getval('替换原始插件图标') ?? '禁用'
-const iconLibrary1 = $.getval('插件随机图标合集') ?? 'Doraemon(100P)'
-const iconLibrary2 = iconLibrary1.split('(')[0]
-const iconFormat = /gif/i.test(iconLibrary2) ? '.gif' : '.png'
+//Plugin Icon Area
+const iconStatus = $.getval('Enable Random Plugin Icons') ?? 'Enabled';
+const iconReplace = $.getval('Replace Original Plugin Icon') ?? 'Disabled';
+const iconLibrary1 = $.getval('Plugin Random Icon Collection') ?? 'Doraemon(100P)';
+const iconLibrary2 = iconLibrary1.split('(')[0];
+const iconFormat = /gif/i.test(iconLibrary2) ? '.gif' : '.png';
 
-//统一前置声明变量
+
+//Unified forward declaration of variables
 let name,
   desc,
   randomicon,
@@ -176,7 +181,7 @@ let name,
 
 let Rewrite = isLooniOS ? '[Rewrite]' : '[URL Rewrite]'
 
-//随机插件图标
+//Random plugin icon
 if ((isStashiOS || isLooniOS) && iconStatus == '启用') {
   const stickerStartNum = 1001
   const stickerSum = iconLibrary1.split('(')[1].split('P')[0]
@@ -191,7 +196,7 @@ if ((isStashiOS || isLooniOS) && iconStatus == '启用') {
     iconFormat
 }
 
-//通知名区域
+//Notification name area
 let rewriteName = req.substring(req.lastIndexOf('/') + 1).split('.')[0]
 let resFile = urlArg.split('?')[0]
 let resFileName = resFile.substring(0, resFile.lastIndexOf('.'))
@@ -202,7 +207,7 @@ if (nName != null && nName[0] != '') {
   notifyName = resFileName
 }
 
-//修改名字和简介
+//Modify name and introduction
 if (nName === null) {
   name = rewriteName
   desc = name
@@ -219,47 +224,49 @@ let modInfoObj = {
   category: '',
 }
 
-//信息中转站
-let bodyBox = [] //存储待转换的内容
-let otherRule = [] //不支持的规则&脚本
-let notBuildInPolicy = [] //不是内置策略的规则
-let inBox = [] //被释放的重写或规则
-let outBox = [] //被排除的重写或规则
-let modInfoBox = [] //模块简介等信息
-let modInputBox = [] //loon插件的可交互按钮
-let hostBox = [] //host
-let ruleBox = [] //规则
-let rwBox = [] //重写
-let rwhdBox = [] //HeaderRewrite
-let panelBox = [] //Panel信息
-let jsBox = [] //脚本
-let mockBox = [] //MapLocal或echo-response
-let hnBox = [] //MITM主机名
-let fheBox = [] //force-http-engine
-let skipBox = [] //skip-ip
-let realBox = [] //real-ip
-let hndelBox = [] //正则剔除的主机名
-let sgArg = [] //surge模块参数
+// Information transfer station
+let bodyBox = [] // Stores content pending conversion
+let otherRule = [] // Rules and scripts that are unsupported
+let notBuildInPolicy = [] // Rules that are not built-in policies
+let inBox = [] // Rewrites or rules that have been released
+let outBox = [] // Rewrites or rules that have been excluded
+let modInfoBox = [] // Module descriptions and other related information
+let modInputBox = [] // Interactive buttons for Loon plugins
+let hostBox = [] // Host information
+let ruleBox = [] // Rules
+let rwBox = [] // Rewrites
+let rwhdBox = [] // Header rewrites
+let panelBox = [] // Panel information
+let jsBox = [] // Scripts
+let mockBox = [] // MapLocal or echo-response data
+let hnBox = [] // MITM hostnames
+let fheBox = [] // Force HTTP engine settings
+let skipBox = [] // Skip IP information
+let realBox = [] // Real IP information
+let hndelBox = [] // Hostnames removed by regex
+let sgArg = [] // Parameters for Surge modules
+
 
 let hnaddMethod = '%APPEND%'
 let fheaddMethod = '%APPEND%'
 let skipaddMethod = '%APPEND%'
 let realaddMethod = '%APPEND%'
 
-//待输出
-let modInfo = [] //模块简介
-let httpFrame = '' //Stash的http:父框架
-let tiles = [] //磁贴覆写
-let General = []
-let Panel = []
-let host = []
-let rules = []
-let URLRewrite = []
-let HeaderRewrite = []
-let MapLocal = []
-let script = []
-let cron = []
-let providers = []
+// To Be Output
+let modInfo = [] // Module Information
+let httpFrame = '' // Stash HTTP Parent Frame
+let tiles = [] // Tiles Overwrite
+let General = [] // General Information
+let Panel = [] // Panel Information
+let host = [] // Host Entries
+let rules = [] // Rules
+let URLRewrite = [] // URL Rewrite Rules
+let HeaderRewrite = [] // Header Rewrite Rules
+let MapLocal = [] // Map Local or Echo Response
+let script = [] // Scripts
+let cron = [] // Cron Jobs
+let providers = [] // Providers
+
 
 hnBox = hnAdd != null ? hnAdd : []
 
@@ -272,7 +279,7 @@ const policyRegex = /^(direct|reject-?(img|video|dict|array|drop|200|tinygif)?(-
 
 const mockRegex = /\s+(?:data-type|status-code|header|data)\s*=/
 
-//查询js binarymode相关
+//Query js Binarymode Related
 let binaryInfo = $.getval('Parser_binary_info')
 if (binaryInfo != null && binaryInfo.length > 0) {
   binaryInfo = $.toObj(binaryInfo)
@@ -314,7 +321,7 @@ if (binaryInfo != null && binaryInfo.length > 0) {
   body = body.match(/[^\r\n]+/g)
 
   for await (let [y, x] of body.entries()) {
-    //简单处理方便后续操作
+    //Streamlined for easier future use
     x = x
       .trim()
       .replace(/^(#|;|\/\/)\s*/, '#')
@@ -324,7 +331,7 @@ if (binaryInfo != null && binaryInfo.length > 0) {
       .replace(/^(#)?host(-suffix|-keyword|-wildcard)?\s*,\s*/i, '$1DOMAIN$2,')
       .replace(/^(#)?ip6-cidr\s*,\s*/i, '$1IP-CIDR6,')
 
-    //去掉注释
+    //Remove Comments
     if (Pin0 != null) {
       for (let i = 0; i < Pin0.length; i++) {
         const elem = Pin0[i].trim()
@@ -333,10 +340,10 @@ if (binaryInfo != null && binaryInfo.length > 0) {
           inBox.push(x)
           break
         }
-      } //循环结束
-    } //去掉注释结束
+      } //End of loop
+    } //去掉注释Finish
 
-    //增加注释
+    //Add comment
     if (Pout0 != null) {
       for (let i = 0; i < Pout0.length; i++) {
         const elem = Pout0[i].trim()
@@ -349,15 +356,16 @@ if (binaryInfo != null && binaryInfo.length > 0) {
           outBox.push(x)
           break
         }
-      } //循环结束
-    } //增加注释结束
-
-    //剔除被注释的重写
+      } // End of loop
+    } // End of adding comments
+    
+    // Remove commented rewrites
     if (delNoteSc == true && /^#/.test(x) && !/^#!/.test(x)) {
       x = ''
     }
+    
 
-    //sni嗅探
+    //sni sniff
     if (sni != null) {
       for (let i = 0; i < sni.length; i++) {
         const elem = sni[i].trim()
@@ -365,15 +373,16 @@ if (binaryInfo != null && binaryInfo.length > 0) {
           x = x + ',extended-matching'
           break
         }
-      } //循环结束
-    } //启用sni嗅探结束
-
-    //ip规则不解析域名
+      } // End of loop
+    } // End of SNI sniffing
+    
+    // IP rules do not resolve domain names
     if (ipNoResolve == true) {
       if (/^(?:ip-[ca]|RULE-SET)/i.test(x) && !/,\s*no-resolve/.test(x)) {
         x = x + ',no-resolve'
       }
-    } //增加ip规则不解析域名结束
+    } // End of adding "no-resolve" to IP rules
+    
 
     if (jsConverter != null) {
       jscStatus = isJsCon(x, jsConverter)
@@ -400,7 +409,7 @@ if (binaryInfo != null && binaryInfo.length > 0) {
       jsSuf = jsSuf + '&compatibilityOnly=true'
     }
 
-    //模块信息
+    //Module information
     if (/^#!.+?=\s*$/.test(x)) {
     } else if (isLooniOS && /^#!(?:select|input)\s*=\s*.+/.test(x)) {
       getInputInfo(x, modInputBox)
@@ -408,7 +417,7 @@ if (binaryInfo != null && binaryInfo.length > 0) {
       getModInfo(x)
     }
 
-    //#!arguments参数
+    //#!argumentsparameter
     if (!isSurgeiOS && /^#!arguments\s*=\s*.+/.test(x)) {
       parseArguments(x)
     }
@@ -422,7 +431,7 @@ if (binaryInfo != null && binaryInfo.length > 0) {
 
     if (/^(?:always-)?real-ip\s*=.+/.test(x)) realaddMethod = getHn(x, realBox, realaddMethod)
 
-    //reject 解析
+    //reject parse
     if (
       /.+reject(?:-\w+)?$/i.test(x) &&
       !/^#?(DOMAIN.*?\s*,|IP-CIDR6?\s*,|IP-ASN\s*,|OR\s*,|AND\s*,|NOT\s*,|USER-AGENT\s*,|URL-REGEX\s*,|RULE-SET\s*,|DE?ST-PORT\s*,|PROTOCOL\s*,)/i.test(
@@ -434,13 +443,13 @@ if (binaryInfo != null && binaryInfo.length > 0) {
       rw_reject(x, mark)
     }
 
-    //重定向 解析
+    //Redirect parsing
     if (/(?:\s(?:302|307|header)(?:$|\s)|url\s+30(?:2|7)\s)/.test(x)) {
       mark = getMark(y, body)
       rw_redirect(x, mark)
     }
 
-    //header rewrite 解析
+    //header rewrite parse
     if (/\sheader-(?:del|add|replace|replace-regex)\s/.test(x)) {
       mark = getMark(y, body)
       noteK = isNoteK(x)
@@ -448,13 +457,13 @@ if (binaryInfo != null && binaryInfo.length > 0) {
       rwhdBox.push({ mark, noteK, x })
     }
 
-    //(request|response)-(header|body) 解析
+    //(request|response)-(header|body) parse
     if (/\surl\s+(?:request|response)-(?:header|body)\s/i.test(x)) {
       mark = getMark(y, body)
       getQxReInfo(x, y, mark)
     }
 
-    //rule解析
+    //ruleparse
     if (
       /^#?(?:domain(?:-suffix|-keyword|-wildcard|-set)?|ip-cidr6?|ip-asn|rule-set|user-agent|url-regex|(de?st|in|src)-port|and|not|or|protocol)\s*,.+/i.test(
         x
@@ -484,9 +493,9 @@ if (binaryInfo != null && binaryInfo.length > 0) {
         modistatus = 'no'
       }
       ruleBox.push({ mark, noteK, ruletype, rulevalue, rulepolicy, rulenore, rulesni, ori: x, modistatus })
-    } //rule解析结束
+    } //ruleparseFinish
 
-    //host解析
+    //hostparse
     if (
       /^#?(?:\*|localhost|[-*?0-9a-z]+\.[-*.?0-9a-z]+)\s*=\s*(?:sever\s*:\s*|script\s*:\s*)?[\s0-9a-z:/,.]+$/g.test(x)
     ) {
@@ -497,7 +506,7 @@ if (binaryInfo != null && binaryInfo.length > 0) {
       hostBox.push({ mark, noteK, hostdomain, hostvalue, ori: x })
     }
 
-    //Panel信息
+    //Panel information
     if (/[=,]\s*script-name\s*=.+/.test(x)) {
       mark = getMark(y, body)
       noteK = isNoteK(x)
@@ -519,9 +528,9 @@ if (binaryInfo != null && binaryInfo.length > 0) {
         ori: x,
         num: y,
       })
-    } //Panel信息解析结束
+    } //PanelinformationparseFinish
 
-    //脚本解析
+    //Script parse
     if (/script-path\s*=.+/.test(x)) {
       mark = getMark(y, body)
       noteK = isNoteK(x)
@@ -603,9 +612,9 @@ if (binaryInfo != null && binaryInfo.length > 0) {
         ori: x,
         num: y,
       })
-    } //脚本解析结束
+    } //ScriptparseFinish
 
-    //qx脚本解析
+    //qxScriptparse
     if (/\surl\s+script-/.test(x)) {
       x = x.replace(/\s{2,}/g, ' ')
       mark = getMark(y, body)
@@ -657,9 +666,9 @@ if (binaryInfo != null && binaryInfo.length > 0) {
         ori: x,
         num: y,
       })
-    } //qx脚本解析结束
+    } //qxScriptparseFinish
 
-    //qx cron脚本解析
+    //qx cronScriptparse
     if (
       /^(?!^(?:#!arguments-desc\s*=|#!desc\s*=))[^\s]+\s+[^u\s]+\s+[^\s]+\s+[^\s]+\s+[^\s]+\s+([^\s]+\s+)?(https?|ftp|file):\/\//.test(
         x
@@ -697,16 +706,16 @@ if (binaryInfo != null && binaryInfo.length > 0) {
         ori: x,
         num: y,
       })
-    } //qx cron 脚本解析结束
+    } //qx cron ScriptparseFinish
 
-    //mock 解析
+    //mock parse
     if (/url\s+echo-response\s|\sdata\s*=\s*"|\sdata-type\s*=/.test(x)) {
       mark = getMark(y, body)
       getMockInfo(x, mark, y)
     }
-  } //for await循环结束
+  } //for awaitCycleFinish
 
-  //去重
+  //Remove Duplicates
   let obj = {}
 
   inBox = [...new Set(inBox)]
@@ -724,58 +733,59 @@ if (binaryInfo != null && binaryInfo.length > 0) {
   ruleBox = [...new Set(ruleBox)]
 
   modInputBox = modInputBox.reduce((curr, next) => {
-    /*判断对象中是否已经有该属性  没有的话 push 到 curr数组*/
+    /* Check if the object already has this property; if not, push it to the curr array */
     obj[next.a + next.b] ? '' : (obj[next.a + next.b] = curr.push(next))
     return curr
   }, [])
 
   hostBox = hostBox.reduce((curr, next) => {
-    /*判断对象中是否已经有该属性  没有的话 push 到 curr数组*/
+    /* Check if the object already has this property; if not, push it to the curr array */
     obj[next.hostdomain] ? '' : (obj[next.hostdomain] = curr.push(next))
     return curr
   }, [])
 
   rwBox = rwBox.reduce((curr, next) => {
-    /*判断对象中是否已经有该属性  没有的话 push 到 curr数组*/
+    /* Check if the object already has this property; if not, push it to the curr array */
     obj[next.rwptn] ? '' : (obj[next.rwptn] = curr.push(next))
     return curr
   }, [])
 
   panelBox = panelBox.reduce((curr, next) => {
-    /*判断对象中是否已经有该属性  没有的话 push 到 curr数组*/
+    /* Check if the object already has this property; if not, push it to the curr array */
     obj[next.scriptname] ? '' : (obj[next.scriptname] = curr.push(next))
     return curr
   }, [])
 
   jsBox = jsBox.reduce((curr, next) => {
-    /*判断对象中是否已经有该属性  没有的话 push 到 curr数组*/
+    /* Check if the object already has this property; if not, push it to the curr array */
     obj[next.jstype + next.jsptn + next.jsurl + next.jsarg] ? '' : (obj[next.jstype + next.jsptn + next.jsurl + next.jsarg] = curr.push(next))
     return curr
   }, [])
 
   mockBox = mockBox.reduce((curr, next) => {
-    /*判断对象中是否已经有该属性  没有的话 push 到 curr数组*/
+    /* Check if the object already has this property; if not, push it to the curr array */
     obj[next.mockptn] ? '' : (obj[next.mockptn] = curr.push(next))
     return curr
-  }, []) //去重结束
+  }, []) // Remove Duplicates Finish
 
   //$.log($.toStr(hnBox))
 
-  inBox = (inBox[0] || '') && `已根据关键词保留以下内容:\n${inBox.join('\n\n')}`
-  outBox = (outBox[0] || '') && `已根据关键词排除以下内容:\n${outBox.join('\n')}`
+  inBox = (inBox[0] || '') && `Content kept based on keywords:\n${inBox.join('\n\n')}`
+  outBox = (outBox[0] || '') && `Content excluded based on keywords:\n${outBox.join('\n')}`
 
   shNotify(inBox)
   shNotify(outBox)
 
-  //mitm删除主机名
+  // Remove hostnames from MITM
   if (hnDel != null && hnBox.length > 0) hnBox = hnBox.filter(item => hnDel.indexOf(item) == -1)
 
-  //mitm正则删除主机名
+  // Regex-based removal of hostnames from MITM
   if (hnRegDel != null) {
     hndelBox = hnBox.filter(item => hnRegDel.test(item))
     hnBox = hnBox.filter(item => !hnRegDel.test(item))
   }
-  hndelBox.length > 0 && noNtf == false && $.msg(JS_NAME, notifyName + ' 已根据正则剔除主机名', `${hndelBox}`)
+  hndelBox.length > 0 && noNtf == false && $.msg(JS_NAME, notifyName + ' Hostnames removed based on regex', `${hndelBox}`)
+
 
   hnBox = pieceHn(hnBox)
   fheBox = pieceHn(fheBox)
@@ -783,7 +793,7 @@ if (binaryInfo != null && binaryInfo.length > 0) {
   realBox = pieceHn(realBox)
   if (synMitm) fheBox = hnBox
 
-  //模块信息输出
+  //模块informationOutput
   switch (targetApp) {
     case 'surge-module':
     case 'shadowrocket-module':
@@ -793,7 +803,7 @@ if (binaryInfo != null && binaryInfo.length > 0) {
       modInfoObj['desc'] = nName == null ? modInfoObj['desc'] : desc
       modInfoObj['category'] = category == null ? modInfoObj['category'] : category
       if (icon == null) {
-        modInfoObj['icon'] = iconReplace == '禁用' ? modInfoObj['icon'] : randomicon
+        modInfoObj['icon'] = iconReplace == 'Disable' ? modInfoObj['icon'] : randomicon
       } else {
         modInfoObj['icon'] = /\//.test(icon) ? icon : await getIcon(icon)
       }
@@ -816,9 +826,9 @@ if (binaryInfo != null && binaryInfo.length > 0) {
         modInfo.push(info)
       } //for
       break
-  } //模块信息输出结束
+  } //模块informationOutputFinish
 
-  //rule输出 switch不适合
+  //ruleOutput switch不适合
   for (let i = 0; i < ruleBox.length; i++) {
     noteK = ruleBox[i].noteK ? '#' : ''
     mark = ruleBox[i].mark ? ruleBox[i].mark : ''
@@ -906,9 +916,9 @@ if (binaryInfo != null && binaryInfo.length > 0) {
     } else {
       otherRule.push(ori)
     }
-  } //for rule输出结束
+  } //for ruleOutputFinish
 
-  //reject redirect输出
+  //reject redirectOutput
   for (let i = 0; i < rwBox.length; i++) {
     noteK = rwBox[i].noteK ? '#' : ''
     mark = rwBox[i].mark ? rwBox[i].mark : ''
@@ -959,9 +969,9 @@ if (binaryInfo != null && binaryInfo.length > 0) {
           MapLocal.push(mark + noteK + rwptn + ' data-type=tiny-gif status-code=200')
         break
     } //switch
-  } //reject redirect输出for
+  } //reject redirectOutputfor
 
-  //headerRewrite输出
+  //headerRewriteOutput
   for (let i = 0; i < rwhdBox.length; i++) {
     noteK = rwhdBox[i].noteK ? '#' : ''
     mark = rwhdBox[i].mark ? rwhdBox[i].mark : ''
@@ -998,10 +1008,10 @@ if (binaryInfo != null && binaryInfo.length > 0) {
       case 'shadowrocket-module':
         otherRule.push(noteK + x)
         break
-    } //headerRewrite输出结束
+    } //headerRewriteOutputFinish
   } //for
 
-  //host输出
+  //hostOutput
   for (let i = 0; i < hostBox.length; i++) {
     noteK = hostBox[i].noteK ? '#' : ''
     mark = hostBox[i].mark ? hostBox[i].mark : ''
@@ -1017,7 +1027,7 @@ if (binaryInfo != null && binaryInfo.length > 0) {
     }
   } //for
 
-  //Mock输出
+  //MockOutput
   for (let i = 0; i < mockBox.length; i++) {
     noteK = mockBox[i].noteK ? '#' : ''
     mark = mockBox[i].mark ? mockBox[i].mark : ''
@@ -1035,9 +1045,9 @@ if (binaryInfo != null && binaryInfo.length > 0) {
         MapLocal.push(mark + noteK + mockptn + mocktype + mockurl + mockstatus + mockheader)
         break
     } //switch
-  } //Mock输出for
+  } //MockOutputfor
 
-  //Panel输出
+  //PanelOutput
   if (isSurgeiOS && panelBox.length > 0) {
     for (let i = 0; i < panelBox.length; i++) {
       noteK = panelBox[i].noteK ? '#' : ''
@@ -1052,9 +1062,9 @@ if (binaryInfo != null && binaryInfo.length > 0) {
       scriptname = reJsValue(njsnametarget || 'null', njsname, scriptname, ori, scriptname)
       Panel.push(mark + noteK + panelname + ' = ' + 'script-name=' + scriptname + title + content + style + updatetime)
     } //for
-  } //panel输出结束
+  } //panelOutputFinish
 
-  //脚本输出
+  //ScriptOutput
   if (!isStashiOS && jsBox.length > 0) {
     for (let i = 0; i < jsBox.length; i++) {
       noteK = jsBox[i].noteK ? '#' : ''
@@ -1220,11 +1230,11 @@ if (binaryInfo != null && binaryInfo.length > 0) {
           }
           break
       } //switch
-    } //脚本输出for
-  } //不是Stash的脚本输出
+    } //ScriptOutputfor
+  } //不是Stash的ScriptOutput
 
   if (isStashiOS && jsBox.length > 0) {
-    //处理脚本名字
+    //处理Script名字
     let urlMap = {}
 
     for (let i = 0; i < jsBox.length; i++) {
@@ -1332,10 +1342,10 @@ if (binaryInfo != null && binaryInfo.length > 0) {
           : providers.push(`${noteK2}"${jsname}":${noteKn4}url: ${jsurl}${noteKn4}interval: 86400`)
       }
       ;/network-changed|event|rule|dns/i.test(jstype) && otherRule.push(ori)
-    } //for循环
-  } //是Stash的脚本输出
+    } //forCycle
+  } //是Stash的ScriptOutput
 
-  //输出内容
+  //OutputContent
   switch (targetApp) {
     case 'surge-module':
     case 'shadowrocket-module':
@@ -1452,7 +1462,7 @@ ${providers}
 
 `
       break
-  } //输出内容结束
+  } //OutputContentFinish
   body = body.replace(/\n{2,}/g, '\n\n')
   if (sgArg.length > 0) {
     for (let i = 0; i < sgArg.length; i++) {
@@ -1465,10 +1475,10 @@ ${providers}
   eval(evJsmodi)
   eval(evUrlmodi)
 
-  otherRule = (otherRule[0] || '') && `${app}不支持以下内容:\n${otherRule.join('\n')}`
+  otherRule = (otherRule[0] || '') && `${app}The following are not supported Content:\n${otherRule.join('\n')}`
 
   notBuildInPolicy =
-    (notBuildInPolicy[0] || '') && `不是${app}内置策略且未指定策略的规则:\n${notBuildInPolicy.join('\n')}`
+    (notBuildInPolicy[0] || '') && `不是${app}Rules with built-in policy and no policy specified:\n${notBuildInPolicy.join('\n')}`
 
   shNotify(otherRule)
   shNotify(notBuildInPolicy)
@@ -1495,7 +1505,7 @@ ${providers}
   noNtf == false ? $.msg(JS_NAME, `${notifyName}：${e}\n${url}`, '', 'https://t.me/zhetengsha_group') : $.log(e)
 
   result = {
-    body: `${notifyName}：${e}\n\n\n\n\n\nScript Hub 重写转换: ❌  可自行翻译错误信息或复制错误信息后点击通知进行反馈
+    body: `${notifyName}：${e}\n\n\n\n\n\nScript Hub Override transformation: ❌  You can translate the errors yourself or copy them and click the notification to provide feedback
 `,
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
@@ -1508,24 +1518,24 @@ ${providers}
   done($.isQuanX() ? result : { response: result })
 })
 
-//判断是否被注释
+// Determine if a line is commented
 function isNoteK(x) {
   return /^#/.test(x) ? '#' : ''
 }
 
-//获取当前内容的注释
+// Get the comment for the current content
 function getMark(index, obj) {
   let mark = obj[index - 1]?.match(/^#(?!!)/) ? obj[index - 1] + '\n' : ''
-
   return mark
 }
 
+// Convert a string with '+' into an array
 function getArgArr(str) {
   let arr = str.split('+')
   return arr.map(item => item.replace(/➕/g, '+'))
 }
 
-//loon的input select互动按钮解析
+// Parse interactive buttons for Loon's input select
 function getInputInfo(x, box) {
   x = x.replace(/\s*=\s*/, '=')
   ;/^#!.+=.+/.test(x) ? (a = x.replace(/^#!/, '').match(/.+?=/)[0]) : ''
@@ -1533,7 +1543,7 @@ function getInputInfo(x, box) {
   box.push({ a, b })
 }
 
-//名字简介解析
+// Parse name and description
 function getModInfo(x) {
   const regex = /^#!\s*([^\s]+?)\s*=\s*(.+)/
   let key = x.match(regex)[1] == 'keyword' ? 'category' : x.match(regex)[1]
@@ -1541,7 +1551,7 @@ function getModInfo(x) {
   modInfoObj[key] = value
 }
 
-//获取可莉图标集
+// Fetch the KeLee icon set
 async function getIcon(icon) {
   let url = 'https://gitlab.com/lodepuly/iconlibrary/-/raw/main/KeLee_icon.json'
   let kicon = $.getjson('Parser_Kelee_icon')
@@ -1560,6 +1570,7 @@ async function getIcon(icon) {
   return 'icon not found'
 }
 
+
 //reject
 function rw_reject(x, mark) {
   let noteK = isNoteK(x)
@@ -1572,7 +1583,7 @@ function rw_reject(x, mark) {
   rwBox.push({ mark, noteK, rwptn, rwvalue: '-', rwtype })
 }
 
-//重定向
+//Redirect
 function rw_redirect(x, mark) {
   let noteK = isNoteK(x)
   x = x.replace(/\s{2,}/g, ' ')
@@ -1670,7 +1681,7 @@ function pieceHn(arr) {
   else return []
 }
 
-//查binary
+//Checkbinary
 async function isBinaryMode(url, name) {
   if (/proto/i.test(name)) {
     return 'true'
@@ -1697,13 +1708,13 @@ async function isBinaryMode(url, name) {
         $.setjson(binaryInfo, 'Parser_binary_info')
         return ''
       }
-    } //没有信息或者没有url的信息
+    } //没有information或者没有url的information
   } else {
     return ''
   }
-} //查binary
+} //Checkbinary
 
-//获取mock参数
+//ObtainmockParameter
 function getMockInfo(x, mark, y) {
   let noteK = isNoteK(x)
   let mockptn, mockurl, mockheader, mocktype, mockstatus
@@ -1787,7 +1798,7 @@ function getMockInfo(x, mark, y) {
       }
       break
   } //switch
-} //获取Mock参数
+} //ObtainMockParameter
 
 function istrue(str) {
   if (str == true || str == 1 || str == 'true' || str == '1') {
@@ -1804,9 +1815,9 @@ function isJsCon(x, arr) {
       if (x.indexOf(elem) != -1) {
         return true
       }
-    } //循环结束
+    } //CycleFinish
   } //if (arr != null)
-} //isJsCon结束
+} //isJsConFinish
 
 function toJsc(jsurl, jscStatus, jsc2Status, jsfrom) {
   if (jscStatus == true || jsc2Status == true) {
@@ -1820,7 +1831,7 @@ function toJsc(jsurl, jscStatus, jsc2Status, jsfrom) {
 function shNotify(box) {
   noNtf == false &&
     box.length > 0 &&
-    $.msg(JS_NAME, notifyName + ' 点击通知查看详情', box, { url: url + '&openMsgHtml=true' })
+    $.msg(JS_NAME, notifyName + ' 点击通知Check看详情', box, { url: url + '&openMsgHtml=true' })
 }
 
 function getPolicy(str) {
@@ -1836,33 +1847,35 @@ function getPolicy(str) {
   }
 }
 
+// Parse arguments from a string
 function parseArguments(str) {
-  const queryString = str.split(/#!arguments\s*=\s*/)[1] //获取查询字符串部分
-  const regex = /([^:,]+):(\s*".+?"|[^,]*)/g //匹配键值对的正则表达式
+  const queryString = str.split(/#!arguments\s*=\s*/)[1] // Extract query string part
+  const regex = /([^:,]+):(\s*".+?"|[^,]*)/g // Regular expression to match key-value pairs
   let match
 
   while ((match = regex.exec(queryString))) {
-    const key = match[1].trim().replace(/^"(.+)"$/, '$1') //去除头尾空白符和引号
-    const value = match[2].trim().replace(/^"(.+)"$/, '$1') //去除头尾空白符和引号
-    sgArg.push({ key, value }) //将键值对添加到对象中
+    const key = match[1].trim().replace(/^"(.+)"$/, '$1') // Remove leading/trailing whitespace and quotes
+    const value = match[2].trim().replace(/^"(.+)"$/, '$1') // Remove leading/trailing whitespace and quotes
+    sgArg.push({ key, value }) // Add key-value pairs to the array
   }
 }
 
+// Parse query string from a URL
 function parseQueryString(url) {
-  const queryString = url.split('?')[1] //获取查询字符串部分
-  const regex = /([^=&]+)=([^&]*)/g //匹配键值对的正则表达式
+  const queryString = url.split('?')[1] // Extract query string part
+  const regex = /([^=&]+)=([^&]*)/g // Regular expression to match key-value pairs
   const params = {}
   let match
 
   while ((match = regex.exec(queryString))) {
-    const key = decodeURIComponent(match[1]) //解码键
-    const value = decodeURIComponent(match[2]) //解码值
-    params[key] = value //将键值对添加到对象中
+    const key = decodeURIComponent(match[1]) // Decode key
+    const value = decodeURIComponent(match[2]) // Decode value
+    params[key] = value // Add key-value pairs to the object
   }
 
   return params
 }
-// 请求
+// ask
 async function http(url, opts = {}) {
   const http_start = Date.now()
   let timeout = HTTP_TIMEOUT + 1 * 1000
@@ -1877,14 +1890,14 @@ async function http(url, opts = {}) {
       $.http.get(reqOpts),
       new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), HTTP_TIMEOUT)),
     ])
-    $.log(`⏱ 请求耗时：${Math.round(((Date.now() - http_start) / 1000) * 100) / 100} 秒\n  └ ${reqOpts.url}`)
+    $.log(`⏱ Request takes time：${Math.round(((Date.now() - http_start) / 1000) * 100) / 100} Second\n  └ ${reqOpts.url}`)
     return res
   } catch (e) {
     $.logErr(e)
     let msg = String($.lodash_get(e, 'message') || e)
     let info
     if (msg.includes('timeout')) {
-      info = `请求超时(${Math.round((HTTP_TIMEOUT / 1000) * 100) / 100} 秒)`
+      info = `Request timed out(${Math.round((HTTP_TIMEOUT / 1000) * 100) / 100} Second)`
     } else {
       throw new Error(e)
     }
@@ -1892,7 +1905,7 @@ async function http(url, opts = {}) {
   }
 }
 function done(...args) {
-  $.log(`⏱ 总耗时：${Math.round(((Date.now() - script_start) / 1000) * 100) / 100} 秒`)
+  $.log(`⏱ Total time spent：${Math.round(((Date.now() - script_start) / 1000) * 100) / 100} Second`)
   $.done(...args)
 }
 // prettier-ignore

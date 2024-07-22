@@ -9,7 +9,7 @@ const reloaded = () => {
     $.done({
       response: {
         status: 200,
-        body: `<meta charset="UTF-8" /><h1>✅ Surge 重载完成<h1><a href="surge://">点此打开 Surge</a>`,
+        body: `<meta charset="UTF-8" /><h1>✅ Surge Reload completed<h1><a href="surge://">点此打开 Surge</a>`,
         headers: {
           'Content-Type': 'text/html;charset=UTF-8',
           'Access-Control-Allow-Origin': '*',
@@ -22,7 +22,7 @@ const reloaded = () => {
     $.done({
       response: {
         status: 200,
-        body: `<meta charset="UTF-8" /><h1>🈚️ 暂时仅支持 Surge<h1>`,
+        body: `<meta charset="UTF-8" /><h1>🈚️ Currently only supports Surge<h1>`,
         headers: {
           'Content-Type': 'text/html;charset=UTF-8',
           'Access-Control-Allow-Origin': '*',
@@ -37,27 +37,27 @@ const reloaded = () => {
 if (isReloadRequest()) {
   if ($.isSurge()) {
     $.msg(
-      'Surge 重载',
-      '即将进行(由于重载机制, 可能没有后续通知)',
-      '点此通知打开 Surge (⚠️ 更新已有模块时 可能仍需要杀掉 Surge 的后台重新打开才能生效)',
+      'Surge Overload',
+      'Coming soon (reload mechanism may prevent follow-up notifications)',
+      'Click here to open notifications Surge (⚠️ Updating modules may still require killing the process Surge Restart the background process to apply changes)',
       'surge://'
     )
     httpAPI('/v1/profiles/reload', 'POST', {}).then(() => {
       $.msg(
-        'Surge 重载',
-        '✅ 完成',
-        '点此通知打开 Surge (⚠️ 更新已有模块时 可能仍需要杀掉 Surge 的后台重新打开才能生效)',
+        'Surge Reload',
+        '✅ Done',
+        'Click to open Surge (⚠️ Updating may need a process kill Surge Restart background to apply changes)',
         'surge://'
       )
-      // 重载后这里不会执行...所以下面又写了一段
+      // After reload, this won't run—see below for details
       reloaded()
     })
   } else {
-    $.msg('重载', '🈚️ 不支持的环境', '暂时仅支持 Surge')
+    $.msg('Reload', '🈚️ Unsupported', 'Supports only Surge')
     reloaded()
   }
 }
-// 重载后会执行到这里
+// After reload, it will execute here
 if (isReloadRequest()) {
   reloaded()
 }
@@ -73,7 +73,7 @@ const html = `
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/assets/icon.png" />
     <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/assets/icon-dark.png">
     
-    <!-- (viewport-fit=cover,填充整个屏幕导致全屏布局不一样) <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">-->
+    <!-- (viewport-fit=cover,Fills the screen, causing layout issues) <link rel="stylesheet" href="https://unpkg.com/simpledotcss/simple.min.css">-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no", viewport-fit=auto />
     <meta name="HandheldFriendly" content="true">
     <title>Script Hub</title>
@@ -842,23 +842,23 @@ textarea::-webkit-resizer {
 const htmls = `
 </script>
   <div id="app"><a href="https://github.com/Script-Hub-Org/Script-Hub"><h1 style="margin-bottom: 0;">Script Hub</h1></a>
-      <p>重写 & 规则集转换 <small>&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki" target="_blank">查看文档</a></small></p>
+      <p>Rewrite & rule set conversion <small>&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki" target="_blank">View documentation</a></small></p>
 
       <div style=" margin-top: 30px;">
-      <!--<code>输入类型:</code> -->
+      <!--<code>Input type:</code> -->
         <span style="position: relative; top: -9px;" v-for="item in inputTypes">
             <input type="radio" :id="'input-type-' + item.value" :value="item.value" v-model.lazy="inputType" :disabled="item.disabled"/>
             <label :for="'input-type-' + item.value" class="radio-label">{{item.label}}</label>
         </span>
-        <textarea v-if=" inputType === 'local-text' " style=" position: relative; top: 4px; " id="localtext" v-model.lazy="localtext" placeholder="请填写本地文件内容"></textarea>
-        <textarea v-else style=" position: relative; top: 4px; " id="src" v-model.lazy="src" placeholder="请填写来源 URL 链接(多个 URL 用 😂 连接)"></textarea>
+        <textarea v-if=" inputType === 'local-text' " style=" position: relative; top: 4px; " id="localtext" v-model.lazy="localtext" placeholder="Fill in local file content"></textarea>
+        <textarea v-else style=" position: relative; top: 4px; " id="src" v-model.lazy="src" placeholder="Provide source URL Link (Use 😂 to link URLs)"></textarea>
       </div>
       <!--font-size: 16px;  style=" position: relative; top: -3px; "-->
-      <small style=" position: relative; top: 7px; ">&nbsp;&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E6%88%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B" target="_blank">如何选择类型</a></small>
+      <small style=" position: relative; top: 7px; ">&nbsp;&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E6%88%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B" target="_blank">How to choose type</a></small>
       <div class="flex-container">
       <div style="white-space: nowrap;">
       
-        <code>&nbsp;来源类型: </code>
+        <code>&nbsp;Source type: </code>
         <div v-for="item in types">
             <input type="radio" :id="'type-' + item.value" :value="item.value" v-model.lazy="type" :disabled="item.disabled"/>
             <label :for="'type-' + item.value" class="radio-label">{{item.label}}</label>
@@ -867,7 +867,7 @@ const htmls = `
       </div>
 
       <div>
-        <code>&nbsp;目标类型: </code>
+        <code>&nbsp;Target type: </code>
         <template v-for="item in targets">
           <div v-if="type === 'rule-set' ? (item.value.endsWith('rule-set') || item.value.includes('domain-set')) : ( (item.value.endsWith('-rule-set')||item.value.includes('domain-set')) ? false : ( type.endsWith('-script') ? item.value.endsWith('-script') : !item.value.endsWith('-script') ) ) ">
             <input type="radio" :id="'target-' + item.value" :value="item.value" v-model.lazy="target" :disabled="item.disabled || (type.endsWith('-script') && !item.value.endsWith('-script')) || (type === 'rule-set' && (!item.value.endsWith('rule-set') && !item.value.includes('domain-set'))) || (type === 'plain-text' && item.value !== 'plain-text') " />
@@ -878,345 +878,377 @@ const htmls = `
     </div>
     <br/>
 
-    <details v-if="!target || type === 'qx-script' || target.endsWith('-script')">
+    <details v-if="!target || type === 'qx-script' || target.endswith('-script')">
       <summary>
-      QX 专属脚本说明：
+      QX Custom script instructions:
       <br/>
-      你一般<code>不需要用它</code>, 因为这是 <code>脚本转脚本</code>
+      You usually <code>Don't need to use it</code> because this is <code>script-to-script conversion</code>
       <br/>
-      通常情况下, 你需要的是 <code>QX 重写 转换到 模块/覆写/插件</code>
+      Typically, what you need is <code>QX Rewrite to Module/Rewrite/Plugin conversion</code>
       <br/>
-      专属脚本转换的使用场景:
+      Use case for custom script conversion:
       <br/>
-      你想在你的模块/覆写/插件中, 单独引用一条转换的 QX 专属脚本
+      You want to reference a converted QX custom script individually in your module/rewrite/plugin
       </summary>
       <span>
-      <!--无-->
+      <!--None-->
       </span>
       
     </details>
 
     <!-- position: fixed; -->
-    <div style="padding: 1rem;bottom: 0rem;margin-right: 0rem;background-color: var(--kbg);/* border: 1px solid var(--border); */border-radius: var(--standard-border-radius);">
-        <span v-if="result" style="color: red">请勿打开链接之后复制浏览器地址栏的链接 浏览器地址栏中的链接可能未编码 可能会导致导入参数异常</span><br/>
-        <a v-if="result" :href="result" target="_blank" style="margin: 0 0.5rem 0 0">打开链接</a>
-        <a v-if="previewResult" :href="previewResult" target="_blank" style="margin: 0 0.5rem 0 0">预览结果</a>
-        <a v-if="result && target === 'shadowrocket-module' " :href=" 'https://api.boxjs.app/shadowrocket/install?module=' + encodeURIComponent(result) " target="_blank" style="margin: 0 0.5rem 0 0">导入(Shadowrocket)</a>
-        <a v-if="result && target === 'loon-plugin' " :href=" 'https://www.nsloon.com/openloon/import?plugin=' + encodeURIComponent(result) " target="_blank" style="margin: 0 0.5rem 0 0">导入(Loon)</a>
-        <a v-if="result && target === 'stash-stoverride' " :href=" 'stash://install-override?url=' + encodeURIComponent(result) " target="_blank" style="margin: 0 0.5rem 0 0">导入(Stash)</a>
-        <template v-if="result && target === 'surge-module' ">
-          <a :href=" 'surge:///install-module?url=' + encodeURIComponent(result) + '&name=' + encodeURIComponent(filename) " target="_blank" style="margin: 0 0.5rem 0 0">导入 Surge(远程模块)</a>
-          <a :href=" 'scriptable:///run/SurgeModuleTool?url=' + encodeURIComponent(result) + '&name=' + encodeURIComponent(filename) " target="_blank" style="margin: 0 0.5rem 0 0">导入 Surge(本地模块 需配合 Scriptable)</a>
-          <small>&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E7%9B%B8%E5%85%B3%E7%94%9F%E6%80%81:-Surge-%E6%A8%A1%E5%9D%97%E5%B7%A5%E5%85%B7" target="_blank">如何配合 Scriptable 导入</a></small>
-        </template>
-        <template v-if="result">
-          <br/>
-          <small>&#9432; 将此链接中的 <code>file</code> 或 <code>convert</code> 改为 <code>edit</code> 即可在浏览器中再次对当前内容进行编辑</small>
-        </template>
-        <textarea v-if="frontendConvert" id="frontendConvertResult" :value="frontendConvertResult" placeholder="结果" readonly></textarea>
-        <textarea v-else id="result" :value="result" placeholder="结果(请输入来源链接并选择类型)" readonly></textarea>
-        <div>
-          <input type="checkbox" id="frontendConvert" v-model.lazy="frontendConvert" :disabled="frontendConvertDisabled"/>
-          <label class="button-over" for="frontendConvert">开启纯前端转换</label>
-          <br/>
-          <small>使用限制: 1. 使用网页部署前端 2. 使用 <code>本地文本内容</code> 3. 转换类型为 <code>重写/模块/覆写/插件 </code> 4. 不会进行内部的 <code>脚本转换</code> 5. 不会进行网络请求 例: 无法使用 <code>可莉图标订阅</code> 但是可以使用完整图标文件链接</small>
-        </div>
+<div style="padding: 1rem; bottom: 0rem; margin-right: 0rem; background-color: var(--kbg); border-radius: var(--standard-border-radius);">
+    <span v-if="result" style="color: red">Please do not copy the URL from the browser address bar after opening the link. The URL in the browser address bar may not be encoded and could cause import parameter errors.</span><br/>
+    <a v-if="result" :href="result" target="_blank" style="margin: 0 0.5rem 0 0">Open Link</a>
+    <a v-if="previewResult" :href="previewResult" target="_blank" style="margin: 0 0.5rem 0 0">Preview Result</a>
+    <a v-if="result && target === 'shadowrocket-module'" :href="'https://api.boxjs.app/shadowrocket/install?module=' + encodeURIComponent(result)" target="_blank" style="margin: 0 0.5rem 0 0">Import (Shadowrocket)</a>
+    <a v-if="result && target === 'loon-plugin'" :href="'https://www.nsloon.com/openloon/import?plugin=' + encodeURIComponent(result)" target="_blank" style="margin: 0 0.5rem 0 0">Import (Loon)</a>
+    <a v-if="result && target === 'stash-stoverride'" :href="'stash://install-override?url=' + encodeURIComponent(result)" target="_blank" style="margin: 0 0.5rem 0 0">Import (Stash)</a>
+    <template v-if="result && target === 'surge-module'">
+        <a :href="'surge:///install-module?url=' + encodeURIComponent(result) + '&name=' + encodeURIComponent(filename)" target="_blank" style="margin: 0 0.5rem 0 0">Import Surge (Remote Module)</a>
+        <a :href="'scriptable:///run/SurgeModuleTool?url=' + encodeURIComponent(result) + '&name=' + encodeURIComponent(filename)" target="_blank" style="margin: 0 0.5rem 0 0">Import Surge (Local Module, Requires Scriptable)</a>
+        <small>&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E7%9B%B8%E5%85%B3%E7%94%9F%E6%80%81:-Surge-%E6%A8%A1%E5%9D%97%E5%B7%A5%E5%85%B7" target="_blank">How to Import with Scriptable</a></small>
+    </template>
+    <template v-if="result">
+        <br/>
+        <small>&#9432; Change <code>file</code> or <code>convert</code> in this URL to <code>edit</code> to edit the current content in the browser again.</small>
+    </template>
+    <textarea v-if="frontendConvert" id="frontendConvertResult" :value="frontendConvertResult" placeholder="Result" readonly></textarea>
+    <textarea v-else id="result" :value="result" placeholder="Result (Please enter the source URL and select the type)" readonly></textarea>
+    <div>
+        <input type="checkbox" id="frontendConvert" v-model.lazy="frontendConvert" :disabled="frontendConvertDisabled"/>
+        <label class="button-over" for="frontendConvert">Enable Pure Frontend Conversion</label>
+        <br/>
+        <small>Usage restrictions: 1. Use web-deployed frontend 2. Use <code>local text content</code> 3. Conversion type is <code>rewrite/module/override/plugin</code> 4. No internal <code>script conversion</code> 5. No network requests. Example: Cannot use <code>Klee Icon Subscription</code> but can use a complete icon file link</small>
+    </div>
+</div>
+
         <button v-if="copyInfo">{{copyInfo}}</button>
-        <button v-else @click="copy" :disabled="!result">复制</button>
-            <!-- <button v-else @click="copy">全选{{isHttps ? "&复制" : ""}}</button> -->
-            <!-- <small v-if="!isHttps"> https://script.hub 可复制</small> -->
-            &nbsp;&nbsp;
-            <button v-if="resetInfo">{{resetInfo}}</button>
-            <button v-else @click="reset">重置</button>
-      </div>
-      <br/>
+<button v-else @click="copy" :disabled="!result">Copy</button>
+<!-- <button v-else @click="copy">Select All{{isHttps ? "&Copy" : ""}}</button> -->
+<!-- <small v-if="!isHttps"> https://script.hub can be copied</small> -->
+&nbsp;&nbsp;
+<button v-if="resetInfo">{{resetInfo}}</button>
+<button v-else @click="reset">Reset</button>
+</div>
+<br/>
 
-      <template v-if="!target || !type || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
-        <small style=" position: relative; top: -4px;">&nbsp;&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E6%88%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%A6%81%E5%BC%80%E5%90%AF%E8%84%9A%E6%9C%AC%E8%BD%AC%E6%8D%A2" target="_blank">什么时候应该启用脚本转换</a></small>
-        <details>
-          <summary>启用脚本转换</summary>
-          <small> &#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E6%88%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%A6%81%E5%BC%80%E5%90%AF%E8%84%9A%E6%9C%AC%E8%BD%AC%E6%8D%A2" target="_blank">脚本转换 1 和 2 怎么选</a></small>
-          <details>
-            <summary>启用脚本转换 1</summary>
-            <span>根据关键词为脚本启用脚本转换(多关键词以 <code>+</code> 分隔，主要用途 将使用了QX独有api的脚本转换为通用脚本，谨慎开启，大部分脚本本身就通用，无差别启用，只会徒增功耗)</span>
-            <textarea id="jsc" v-model.lazy="jsc" placeholder=""></textarea>
-            <div>
-              <input type="checkbox" id="jsc_all" v-model.lazy="jsc_all" />
-              <label for="jsc_all">全部转换</label>
-            </div>
-            <div>
-              <input type="checkbox" id="compatibilityOnly" v-model.lazy="compatibilityOnly" />
-              <label class="button-over" for="compatibilityOnly">仅进行兼容性转换<small style=" position: relative; top: -4px;">&nbsp;&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E6%88%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B#%E4%BB%80%E4%B9%88%E6%98%AF-%E4%BB%85%E8%BF%9B%E8%A1%8C%E5%85%BC%E5%AE%B9%E6%80%A7%E8%BD%AC%E6%8D%A2" target="_blank">什么是 <code>仅进行兼容性转换</code></a></small></label>
-            </div>
-          </details>
+<template v-if="!target || !type || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
+    <small style="position: relative; top: -4px;">&nbsp;&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E6%88%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%A6%81%E5%BC%80%E5%90%AF%E8%84%9A%E6%9C%AC%E8%BD%AC%E6%8D%A2" target="_blank">When to Enable Script Conversion</a></small>
+    <details>
+
+         <summary>Enable Script Conversion</summary>
+<small>&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E6%88%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%A6%81%E5%BC%80%E5%90%AF%E8%84%9A%E6%9C%AC%E8%BD%AC%E6%8D%A2" target="_blank">How to Choose Between Script Conversion 1 and 2</a></small>
+<details>
+    <summary>Enable Script Conversion 1</summary>
+    <span>Enable script conversion based on keywords (multiple keywords separated by <code>+</code>). This is mainly used to convert scripts that use QX-specific APIs into general scripts. Use with caution, as most scripts are already universal and enabling this indiscriminately will only increase power consumption.</span>
+    <textarea id="jsc" v-model.lazy="jsc" placeholder=""></textarea>
+    <div>
+        <input type="checkbox" id="jsc_all" v-model.lazy="jsc_all" />
+        <label for="jsc_all">Convert All</label>
+    </div>
+    <div>
+        <input type="checkbox" id="compatibilityOnly" v-model.lazy="compatibilityOnly" />
+        <label class="button-over" for="compatibilityOnly">Compatibility Conversion Only<small style="position: relative; top: -4px;">&nbsp;&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E6%88%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B#%E4%BB%80%E4%B9%88%E6%98%AF-%E4%BB%85%E8%BF%9B%E8%A1%8C%E5%85%BC%E5%AE%B9%E6%80%A7%E8%BD%AC%E6%8D%A2" target="_blank">What is <code>Compatibility Conversion Only</code></a></small></label>
+    </div>
+</details>
 
           <details>
-            <summary>启用脚本转换 2</summary>
-            <span>根据关键词为脚本启用脚本转换(与 <code>启用脚本转换 1</code> 的区别: 总是会在 <code>$done</code><code>(body)</code> 里包一个response)</span>
-            <textarea id="jsc2" v-model.lazy="jsc2" placeholder=""></textarea>
-            <div>
-              <input type="checkbox" id="jsc2_all" v-model.lazy="jsc2_all" />
-              <label for="jsc2_all">全部转换</label>
-            </div>
-            <div>
-              <input type="checkbox" id="compatibilityOnly" v-model.lazy="compatibilityOnly" />
-              <label class="button-over" for="compatibilityOnly">仅进行兼容性转换<small style=" position: relative; top: -4px;">&nbsp;&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E6%88%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B#%E4%BB%80%E4%B9%88%E6%98%AF-%E4%BB%85%E8%BF%9B%E8%A1%8C%E5%85%BC%E5%AE%B9%E6%80%A7%E8%BD%AC%E6%8D%A2" target="_blank">什么是 <code>仅进行兼容性转换</code></a></small></label>
-            </div>
-          </details>
-        </details>
+    <summary>Enable Script Conversion 2</summary>
+    <span>Enable script conversion based on keywords (difference from <code>Enable Script Conversion 1</code>: will always wrap a response in <code>$done(body)</code>)</span>
+    <textarea id="jsc2" v-model.lazy="jsc2" placeholder=""></textarea>
+    <div>
+        <input type="checkbox" id="jsc2_all" v-model.lazy="jsc2_all" />
+        <label for="jsc2_all">Convert All</label>
+    </div>
+    <div>
+        <input type="checkbox" id="compatibilityOnly" v-model.lazy="compatibilityOnly" />
+        <label class="button-over" for="compatibilityOnly">Compatibility Conversion Only<small style="position: relative; top: -4px;">&nbsp;&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E6%88%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B#%E4%BB%80%E4%B9%88%E6%98%AF-%E4%BB%85%E8%BF%9B%E8%A1%8C%E5%85%BC%E5%AE%B9%E6%80%A7%E8%BD%AC%E6%8D%A2" target="_blank">What is <code>Compatibility Conversion Only</code></a></small></label>
+    </div>
+</details>
+</details>
+
       </template>
 
+<details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
+    <summary>Name and Description</summary>
+    <span>Name + description, connected by <code>+</code>. You can omit the name or description. If you want to use <code>+</code> in the name or description, please replace it with <code>➕</code>.</span>
+    <textarea id="n" v-model.lazy="n" placeholder=""></textarea>
+</details>
+
+<details>
+    <summary>File Name (Avoid duplicates, default from source)</summary>
+    <textarea id="filename" v-model.lazy="filename" :placeholder=" target === 'plain-text' ? 'Currently plain text type, enter the full filename with extension' : 'Without extension' "></textarea>
+</details>
+
+<details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
+    <summary>Category</summary>
+    <textarea id="category" v-model.lazy="category" placeholder="Specify category"></textarea>
+</details>
+
+<details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
+    <summary>Icon</summary>
+    <p>You can specify an icon name or icon link from the <a href="https://gitlab.com/lodepuly/iconlibrary/-/raw/main/KeLee_icon.json" target="_blank">KeLee Icon Subscription</a>.</p>
+    <textarea id="icon" v-model.lazy="icon" placeholder="Specify icon"></textarea>
+</details>
+
+<details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
+    <summary>Rewrite Related</summary>
+
+    <details>
+        <summary>Retain Rewrite</summary>
+        <span>Retain rewrites based on keywords (i.e., remove comment symbols #). Multiple keywords are separated by <code>+</code>.</span>
+        <textarea id="y" v-model.lazy="y" placeholder=""></textarea>
+    </details>
+    <details>
+
+          <summary>Exclude Rewrite</summary>
+<span>Exclude rewrites based on keywords (i.e., add comment symbols #). Multiple keywords are separated by <code>+</code>.</span>
+<textarea id="x" v-model.lazy="x" placeholder=""></textarea>
+</details>
+<div>
+  <input type="checkbox" id="synMitm" v-model.lazy="synMitm" />
+  <label for="synMitm">Sync MitM hostnames to <code>force-http-engine-hosts</code></label>
+</div>
+<div>
+  <input type="checkbox" id="del" v-model.lazy="del" />
+  <label for="del">Exclude commented rewrites from conversion results</label>
+</div>
+<div class="divstyle">
+  <input type="checkbox" id="del" v-model.lazy="keepHeader" />
+  <label for="keepHeader">Retain <code>header</code>/<code>content-type</code> in <code>Map Local</code>/<code>echo-response</code> (more memory usage but faster response)</label>
+</div>
+<div>
+  <input type="checkbox" id="del" v-model.lazy="jsDelivr" />
+  <label for="jsDelivr">Convert GitHub to jsDelivr (fixes content-type)</label>
+</div>
+</details>
+
+<details v-if="!target || (target.endsWith('rule-set') || target.includes('domain-set'))">
+  <summary>Rule Related</summary>
+  <details>
+    <summary>Retain Rules</summary>
+    <span>Retain rules based on keywords (i.e., remove comment symbols #). Multiple keywords are separated by <code>+</code>.</span>
+    <textarea id="y" v-model.lazy="y" placeholder=""></textarea>
+  </details>
+  <details>
+    <summary>Exclude Rules</summary>
+    <span>Exclude rules based on keywords (i.e., add comment symbols #). Multiple keywords are separated by <code>+</code>.</span>
+    <textarea id="x" v-model.lazy="x" placeholder=""></textarea>
+  </details>
+</details>
+
       <details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
-        <summary>名称 简介</summary>
-        <span>名字+简介 ，名字和简介以 <code>+</code> 相连，可缺省名字或简介. 名字或简介中想使用 <code>+</code> 请用 <code>➕</code> 代替</span>
-        <textarea id="n" v-model.lazy="n" placeholder=""></textarea>
-      </details>
+    <summary>Specify Policy</summary>
+    <span>Specify a policy for rules under the <code>[Rule]</code> field that do not have a policy specified or have a policy that is not an app built-in policy. If not specified, the rule will be automatically skipped.</span>
+    <textarea id="policy" v-model.lazy="policy" placeholder=""></textarea>
+</details>
+
+
+
+
+      <details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
+    <summary>Modify MitM Hostnames</summary>
+    <details>
+        <summary>Add MitM Hostnames</summary>
+        <span>Add MitM hostnames, multiple hostnames separated by <code>,</code></span>
+        <textarea id="hnadd" v-model.lazy="hnadd" placeholder=""></textarea>
+    </details>
+</details>
+
+
+        <details>
+    <summary>Delete MitM Hostnames</summary>
+    <span>1. Delete hostnames from existing MitM hostnames. Multiple hostnames are separated by <code>,</code> (full hostnames required).</span>
+    <textarea id="hndel" v-model.lazy="hndel" placeholder=""></textarea>
+    <span>2. Use <code>regular expressions</code> to delete hostnames from existing MitM hostnames.</span>
+    <textarea id="hnregdel" v-model.lazy="hnregdel" placeholder=""></textarea>
+</details>
+</details>
+
       
-      <details>
-        <summary>文件名(避免重名, 默认从来源取)</summary>
-        <textarea id="filename" v-model.lazy="filename" :placeholder=" target === 'plain-text' ? '当前为纯文本类型, 此处为包含后缀的完整文件名' : '不包含后缀' "></textarea>
-      </details>
 
       <details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
-        <summary>分类</summary>
-        <textarea id="category" v-model.lazy="category" placeholder="指定 category"></textarea>
-      </details>
-
-      <details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
-        <summary>图标</summary>
-        <p>可指定 <a href="https://gitlab.com/lodepuly/iconlibrary/-/raw/main/KeLee_icon.json" target="_blank">可莉图标订阅</a> 里的图标名或图标链接</p>
-        <textarea id="icon" v-model.lazy="icon" placeholder="指定 icon"></textarea>
-      </details>
-
-      <details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
-        <summary>重写相关</summary>
+    <summary>Modify Script Name</summary>
+    <div>Please be sure to read <a href="https://t.me/zhetengsha/1372" target="_blank">this example</a> to learn how to use it.</div>
+    <details>
+        <summary>Keyword Lock Script (njsnametarget)</summary>
+        <span>Lock scripts based on keywords, use the <code>njsname</code> parameter to modify the script name. Multiple keywords are separated by <code>+</code>. If several items are passed to <code>njsnametarget</code>, the same number of items must be passed to <code>njsname</code>.</span>
+        <textarea id="njsnametarget" v-model.lazy="njsnametarget" placeholder=""></textarea>
+    </details>
+</details>
 
         <details>
-          <summary>保留重写</summary>
-          <span>根据关键词保留重写(即去掉注释符#) 多关键词以 <code>+</code> 分隔</span>
-          <textarea id="y" v-model.lazy="y" placeholder=""></textarea>
-        </details>
-        <details>
-          <summary>排除重写</summary>
-          <span>根据关键词排除重写(即添加注释符#) 多关键词以 <code>+</code> 分隔</span>
-          <textarea id="x" v-model.lazy="x" placeholder=""></textarea>
-        </details>
-        <div>
-          <input type="checkbox" id="synMitm" v-model.lazy="synMitm" />
-          <label for="synMitm">将 MitM 主机名同步至 <code>force-http-engine-hosts</code></label>
-        </div>
-        <div>
-          <input type="checkbox" id="del" v-model.lazy="del" />
-          <label for="del">从转换结果中剔除被注释的重写</label>
-        </div>
-        <div class="divstyle">
-          <input type="checkbox" id="del" v-model.lazy="keepHeader" />
-          <label for="keepHeader">保留 <code>Map Local</code>/<code>echo-response</code> 中的 <code>header</code>/<code>content-type</code>(占用内存多 但响应快)</label>
-        </div>
-        <div>
-          <input type="checkbox" id="del" v-model.lazy="jsDelivr" />
-          <label for="jsDelivr">GitHub 转 jsDelivr(修复 content-type)</label>
-        </div>
-      </details>
+    <summary>New Script Name (njsname)</summary>
+    <span>See the <code>njsnametarget</code> parameter description</span>
+    <textarea id="njsname" v-model.lazy="njsname" placeholder=""></textarea>
+</details>
+</details>
+<details v-if="!target || (!target.endswith('rule-set') && !target.includes('domain-set') && !target.endswith('-script') && target !== 'plain-text')">
+    <summary>Modify Script Timeout</summary>
+    <div>Please be sure to read <a href="https://t.me/zhetengsha/1372" target="_blank">this example</a> to learn how to use it.</div>
+    <details>
 
-      <details v-if="!target || (target.endsWith('rule-set') || target.includes('domain-set'))">
-        <summary>规则相关</summary>
-        <details>
-          <summary>保留规则</summary>
-          <span>根据关键词保留规则(即去掉注释符#) 多关键词以 <code>+</code> 分隔</span>
-          <textarea id="y" v-model.lazy="y" placeholder=""></textarea>
-        </details>
-        <details>
-          <summary>排除规则</summary>
-          <span>根据关键词排除规则(即添加注释符#) 多关键词以 <code>+</code> 分隔</span>
-          <textarea id="x" v-model.lazy="x" placeholder=""></textarea>
-        </details>
-      </details>
+          <summary>Keyword Lock Script (timeoutt)</summary>
+<span>Lock scripts based on keywords, use the <code>timeoutv</code> parameter to modify the script timeout. Multiple keywords are separated by <code>+</code>. If several items are passed to <code>timeoutt</code>, the same number of items must be passed to <code>timeoutv</code>.</span>
+<textarea id="timeoutt" v-model.lazy="timeoutt" placeholder=""></textarea>
+</details>
+<details>
+    <summary>Timeout (timeoutv)</summary>
+    <span>See the <code>timeoutt</code> parameter description</span>
+    <textarea id="timeoutv" v-model.lazy="timeoutv" placeholder=""></textarea>
+</details>
 
-      <details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
-        <summary>指定策略</summary>
-        <span>为 <code>[Rule]</code> 字段下未指定策略或指定的策略不是 app 内置策略的规则指定一个策略，如未指定将自动跳过该规则</span>
-        <textarea id="policy" v-model.lazy="policy" placeholder=""></textarea>
-      </details>
+</details>
 
+     <details v-if="!target || target === 'surge-module'">
+    <summary>Modify Script Engine (Surge)</summary>
+    <div>Please be sure to read <a href="https://t.me/zhetengsha/1372" target="_blank">this example</a> to learn how to use it.</div>
+    <details>
 
+          <summary>Keyword Lock Script (enginet)</summary>
+<span>Lock scripts based on keywords, use the <a href="https://t.me/SurgeTestFlightFeed/114" target="_blank">script engine</a> parameter <code>enginev</code> to modify it. Multiple keywords are separated by <code>+</code>. If several items are passed to <code>enginet</code>, the same number of items must be passed to <code>enginev</code>.</span>
+<textarea id="enginet" v-model.lazy="enginet" placeholder=""></textarea>
+</details>
+<details>
+    <summary>Engine (enginev)</summary>
+    <span>See the <code>enginet</code> parameter description</span>
+    <textarea id="enginev" v-model.lazy="enginev" placeholder=""></textarea>
+</details>
+</details>
 
-      <details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
-        <summary>修改 MitM 主机名</summary>
-        <details>
-          <summary>添加 MitM 主机名</summary>
-          <span>添加 MitM 主机名 多主机名以 <code>,</code> 分隔</span>
-          <textarea id="hnadd" v-model.lazy="hnadd" placeholder=""></textarea>
-        </details>
-
-        <details>
-          <summary>删除 MitM 主机名</summary>
-          <span>1. 从已有 MitM 主机名中删除主机名 多主机名以 <code>,</code> 分隔(需要传入完整主机名)</span>
-          <textarea id="hndel" v-model.lazy="hndel" placeholder=""></textarea>
-          <span>2. 使用 <code>正则表达式</code> 从已有 MitM 主机名中删除主机名</span>
-          <textarea id="hnregdel" v-model.lazy="hnregdel" placeholder=""></textarea>
-        </details>
-      </details>
-      
-
-      <details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
-        <summary>修改脚本名</summary>
-        <div>请务必阅读 <a href="https://t.me/zhetengsha/1372" target="_blank">此示例</a> 学习如何使用</div>
-        <details>
-          <summary>关键词锁定脚本(njsnametarget)</summary>
-          <span>根据关键词锁定脚本, 配合参数 <code>njsname</code> 修改脚本名. 多关键词用 <code>+</code> 分隔, <code>njsnametarget</code> 传入了几项,  <code>njsname</code> 也必须对应传入几项</span>
-          <textarea id="njsnametarget" v-model.lazy="njsnametarget" placeholder=""></textarea>
-        </details>
-        <details>
-          <summary>新的脚本名(njsname)</summary>
-          <span>见 <code>njsnametarget</code> 参数说明</span>
-          <textarea id="njsname" v-model.lazy="njsname" placeholder=""></textarea>
-        </details>
-      </details>
-      <details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
-        <summary>修改脚本超时</summary>
-        <div>请务必阅读 <a href="https://t.me/zhetengsha/1372" target="_blank">此示例</a> 学习如何使用</div>
-        <details>
-          <summary>关键词锁定脚本(timeoutt)</summary>
-          <span>根据关键词锁定脚本, 配合参数 <code>timeoutv</code> 修改脚本超时. 多关键词用 <code>+</code> 分隔, <code>timeoutt</code> 传入了几项,  <code>timeoutv</code> 也必须对应传入几项</span>
-          <textarea id="timeoutt" v-model.lazy="timeoutt" placeholder=""></textarea>
-        </details>
-        <details>
-          <summary>超时(timeoutv)</summary>
-          <span>见 <code>timeoutt</code> 参数说明</span>
-          <textarea id="timeoutv" v-model.lazy="timeoutv" placeholder=""></textarea>
-        </details>
-      </details>
-
-      <details v-if="!target || target === 'surge-module' ">
-        <summary>修改脚本引擎(Surge)</summary>
-        <div>请务必阅读 <a href="https://t.me/zhetengsha/1372" target="_blank">此示例</a> 学习如何使用</div>
-        <details>
-          <summary>关键词锁定脚本(enginet)</summary>
-          <span>根据关键词锁定脚本, 配合参数 <code>enginev</code> 修改 <a href="https://t.me/SurgeTestFlightFeed/114" target="_blank">脚本引擎</a>. 多关键词用 <code>+</code> 分隔, <code>enginet</code> 传入了几项,  <code>enginev</code> 也必须对应传入几项</span>
-          <textarea id="enginet" v-model.lazy="enginet" placeholder=""></textarea>
-        </details>
-        <details>
-          <summary>引擎(enginev)</summary>
-          <span>见 <code>enginet</code> 参数说明</span>
-          <textarea id="enginev" v-model.lazy="enginev" placeholder=""></textarea>
-        </details>
-      </details>
-
-      <details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
-        <summary>修改定时任务</summary>
-        <div>请务必阅读 <a href="https://t.me/zhetengsha/1372" target="_blank">此示例</a> 学习如何使用</div>
-        <details>
-          <summary>关键词锁定定时任务(cron)</summary>
-          <span>根据关键词锁定 <code>cron</code> 脚本配合参数 <code>cronexp</code> 修改定时任务的cron表达式 多关键词用 <code>+</code> 分隔, <code>cron</code> 传入了几项, <code>cronexp</code> 也必须对应传入几项。 cron 表达式中空格可用 "." 替代</span>
-          <textarea id="cron" v-model.lazy="cron" placeholder=""></textarea>
-        </details>
-        <details>
-          <summary>修改定时任务(cronexp)</summary>
-          <span>见 <code>cron</code> 参数说明</span>
-          <textarea id="cronexp" v-model.lazy="cronexp" placeholder=""></textarea>
-        </details>
-      </details>
+      <details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text')">
+    <summary>Modify Scheduled Tasks</summary>
+    <div>Please be sure to read <a href="https://t.me/zhetengsha/1372" target="_blank">this example</a> to learn how to use it.</div>
+    <details>
+        <summary>Keyword Lock Scheduled Tasks (cron)</summary>
+        <span>Lock <code>cron</code> scripts based on keywords, use the <code>cronexp</code> parameter to modify the cron expression for scheduled tasks. Multiple keywords are separated by <code>+</code>. If several items are passed to <code>cron</code>, the same number of items must be passed to <code>cronexp</code>. In the cron expression, spaces can be replaced with ".".</span>
+        <textarea id="cron" v-model.lazy="cron" placeholder=""></textarea>
+    </details>
+    <details>
+        <summary>Modify Scheduled Tasks (cronexp)</summary>
+        <span>See the <code>cron</code> parameter description</span>
+        <textarea id="cronexp" v-model.lazy="cronexp" placeholder=""></textarea>
+    </details>
+</details>
 
 
-      <details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text' )">
-        <summary>修改参数</summary>
-        <div>请务必阅读 <a href="https://t.me/zhetengsha/1372" target="_blank">此示例</a> 学习如何使用</div>
-        <details>
-          <summary>修改参数(arg)</summary>
-          <span>arg= 根据关键词锁定脚本配合参数argv= 修改argument=的值 多关键词用 <code>+</code> 分隔，arg=传入了几项，argv=也必须对应传入几项。 argument中  <code>+</code> 必须用"t;add;"替代。</span>
-          <textarea id="arg" v-model.lazy="arg" placeholder=""></textarea>
-        </details>
-        <details>
-          <summary>修改参数(argv)</summary>
-          <span>见 arg= 参数说明</span>
-          <textarea id="argv" v-model.lazy="argv" placeholder=""></textarea>
-        </details>
-      </details>
+
+      <details v-if="!target || (!target.endsWith('rule-set') && !target.includes('domain-set') && !target.endsWith('-script') && target !== 'plain-text')">
+    <summary>Modify Parameters</summary>
+    <div>Please be sure to read <a href="https://t.me/zhetengsha/1372" target="_blank">this example</a> to learn how to use it.</div>
+    <details>
+        <summary>Modify Parameters (arg)</summary>
+        <span>Use <code>arg=</code> to lock scripts based on keywords and modify the value of <code>argument=</code> using the <code>argv=</code> parameter. Multiple keywords are separated by <code>+</code>. The number of items passed to <code>arg=</code> must match the number of items passed to <code>argv=</code>. In the argument, <code>+</code> must be replaced with "t;add;".</span>
+        <textarea id="arg" v-model.lazy="arg" placeholder=""></textarea>
+    </details>
+    <details>
+        <summary>Modify Parameters (argv)</summary>
+        <span>See the description for the <code>arg=</code> parameter</span>
+        <textarea id="argv" v-model.lazy="argv" placeholder=""></textarea>
+    </details>
+</details>
+
 
       <details v-if="!target || target === 'stash-stoverride'">
-        <summary>Stash Tiles 面板相关</summary>
-        <div>请务必阅读 <a href="https://t.me/zhetengsha/1372" target="_blank">此示例</a> 学习如何使用</div>
-        <details>
-          <summary>根据关键词锁定 Surge 的 Panel 脚本(Stash 专用参数)</summary>
-          <span>tiles= Stash专用参数，根据关键词锁定Surge的panel脚本，配合tcolor= 参数修改转换成tiles后的背景颜色，HEX码中的"#"必须用"@"替代</span>
-          <textarea id="tiles" v-model.lazy="tiles" placeholder=""></textarea>
-        </details>
-        <details>
-          <summary>Tiles 颜色(Stash 专用参数)</summary>
-          <span>tcolor= 见 tiles 参数说明 请传入8位HEX颜色代码</span>
-          <textarea id="tcolor" v-model.lazy="tcolor" placeholder=""></textarea>
-        </details>
-      </details>
+    <summary>Stash Tiles Panel Related</summary>
+    <div>Please be sure to read <a href="https://t.me/zhetengsha/1372" target="_blank">this example</a> to learn how to use it.</div>
+    <details>
+        <summary>Lock Surge Panel Scripts by Keywords (Stash Specific Parameters)</summary>
+        <span>Use <code>tiles=</code> for Stash-specific parameters. Lock Surge's panel script based on keywords, and use the <code>tcolor=</code> parameter to modify the background color after converting to tiles. In the HEX code, "#" must be replaced with "@".</span>
+        <textarea id="tiles" v-model.lazy="tiles" placeholder=""></textarea>
+    </details>
+    <details>
+        <summary>Tiles Color (Stash Specific Parameter)</summary>
+        <span>Use <code>tcolor=</code> as described in the <code>tiles</code> parameter section. Please provide an 8-digit HEX color code.</span>
+        <textarea id="tcolor" v-model.lazy="tcolor" placeholder=""></textarea>
+    </details>
+</details>
 
-      <details v-if="false">
-        <summary>缓存(默认开启)</summary>
-        <span>cachexp= 设置缓存有效期，单位：小时，不传入此参数默认有效期一小时。也可以用 BoxJs 修改 <code>Parser_cache_exp</code> 的值来修改全局有效期。单位：小时，支持小数，设置为0.0001即立即过期。</span>
-        <input id="cachexp" v-model.number.lazy="cachexp" placeholder=""></input>
-        <div>
-          <input type="checkbox" id="nocache" v-model.lazy="nocache" />
-          <label for="nocache">不缓存该条链接</label>
-        </div>
-      </details>
 
-      <div>
-        <input type="checkbox" id="nore" v-model.lazy="nore" />
-        <label class="button-over" for="nore">IP 规则开启不解析域名(即 no-resolve)</label>
-      </div>
+     <details v-if="false">
+    <summary>Cache (Enabled by Default)</summary>
+    <span>Use <code>cachexp=</code> to set the cache expiration period, in hours. If this parameter is not provided, the default expiration is one hour. You can also use BoxJs to modify the value of <code>Parser_cache_exp</code> to change the global expiration period. The unit is hours and supports decimals; setting it to 0.0001 will expire immediately.</span>
+    <input id="cachexp" v-model.number.lazy="cachexp" placeholder=""></input>
+    <div>
+        <input type="checkbox" id="nocache" v-model.lazy="nocache" />
+        <label for="nocache">Do not cache this link</label>
+    </div>
+</details>
 
-      <details v-if="!target || target.startsWith('surge') ">
-        <summary>SNI 扩展匹配(extended-matching)</summary>
-        <span>根据关键词开启 Surge 的 SNI 扩展匹配(extended-matching) 多关键词以 <code>+</code> 分隔</span>
-        <textarea id="sni" v-model.lazy="sni" placeholder=""></textarea>
-      </details>
+<div>
+    <input type="checkbox" id="nore" v-model.lazy="nore" />
+    <label class="button-over" for="nore">Enable IP rules without resolving domain names (i.e., no-resolve)</label>
+</div>
 
-      <div v-if="!target || target.endsWith('-script') ">
-        <input type="checkbox" id="wrap_response" v-model.lazy="wrap_response" />
-        <label class="button-over" for="wrap_response">总是会在 <code>$done</code><code>(body)</code> 里包一个 response</label>
-      </div>
+<details v-if="!target || target.startsWith('surge')">
+    <summary>SNI Extended Matching (extended-matching)</summary>
+    <span>Enable Surge's SNI extended matching (extended-matching) based on keywords. Separate multiple keywords with <code>+</code>.</span>
+    <textarea id="sni" v-model.lazy="sni" placeholder=""></textarea>
+</details>
 
-      <div v-if="!target || target.endsWith('-script') ">
-        <input type="checkbox" id="compatibilityOnly" v-model.lazy="compatibilityOnly" />
-        <label class="button-over" for="compatibilityOnly">仅进行兼容性转换<small style=" position: relative; top: -4px;">&nbsp;&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E6%88%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B#%E4%BB%80%E4%B9%88%E6%98%AF-%E4%BB%85%E8%BF%9B%E8%A1%8C%E5%85%BC%E5%AE%B9%E6%80%A7%E8%BD%AC%E6%8D%A2" target="_blank">什么是 <code>仅进行兼容性转换</code></a></small></label>
-      </div>
+<div v-if="!target || target.endsWith('-script')">
+    <input type="checkbox" id="wrap_response" v-model.lazy="wrap_response" />
+    <label class="button-over" for="wrap_response">Always wrap a <code>$done</code><code>(body)</code> response</label>
+</div>
+
+
+     <div v-if="!target || target.endsWith('-script')">
+    <input type="checkbox" id="compatibilityOnly" v-model.lazy="compatibilityOnly" />
+    <label class="button-over" for="compatibilityOnly">
+        Only perform compatibility conversion
+        <small style="position: relative; top: -4px;">
+            &nbsp;&#9432; <a href="https://github.com/Script-Hub-Org/Script-Hub/wiki/%E6%88%91%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%E6%9D%A5%E6%BA%90%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%9B%AE%E6%A0%87%E7%B1%BB%E5%9E%8B#%E4%BB%80%E4%B9%88%E6%98%AF-%E4%BB%85%E8%BF%9B%E8%A1%8C%E5%85%BC%E5%AE%B9%E6%80%A7%E8%BD%AC%E6%8D%A2" target="_blank">
+                What is <code>Only perform compatibility conversion</code>
+            </a>
+        </small>
+    </label>
+</div>
+
 
 
       <details v-if="inputType !== 'local-text'">
-        <summary>自定义请求的 Headers</summary>
-        <span>格式(使用英文冒号 不要加无意义的空格): <code>Field:Value</code> 可换行输入多个</span>
-        <textarea id="headers" v-model.lazy="headers" placeholder="Authorization:token xxx"></textarea>
-      </details>
-      <details>
-        <summary>高级操作(使用代码处理内容)</summary>
-        <details>
-          <summary>处理原始内容(代码)</summary>
-          <span>使用 <code>eval</code> 执行, 内容变量为 <code>body</code></span>
-          <textarea id="evalScriptori" v-model.lazy="evalScriptori" placeholder="body = body.replace(/ffffoooooo/gi, 'bbbaaarrr')"></textarea>
-        </details>
+    <summary>Custom Request Headers</summary>
+    <span>Format (use English colon, avoid unnecessary spaces): <code>Field:Value</code>. Enter multiple headers on separate lines.</span>
+    <textarea id="headers" v-model.lazy="headers" placeholder="Authorization: token xxx"></textarea>
+</details>
+
+<details>
+    <summary>Advanced Operations (Process Content with Code)</summary>
+    <details>
+        <summary>Process Raw Content (Code)</summary>
+        <span>Use <code>eval</code> to execute. The content variable is <code>body</code>.</span>
+        <textarea id="evalScriptori" v-model.lazy="evalScriptori" placeholder="body = body.replace(/ffffoooooo/gi, 'bbbaaarrr')"></textarea>
+    </details>
+</details>
+
 
         <details>
-          <summary>处理转换后的内容(代码)</summary>
-          <span>使用 <code>eval</code> 执行, 内容变量为 <code>body</code></span>
-          <textarea id="evalScriptmodi" v-model.lazy="evalScriptmodi" placeholder="body = body.replace(/ffffoooooo/gi, 'bbbaaarrr')"></textarea>
-        </details>
+    <summary>Process Converted Content (Code)</summary>
+    <span>Use <code>eval</code> to execute. The content variable is <code>body</code>.</span>
+    <textarea id="evalScriptmodi" v-model.lazy="evalScriptmodi" placeholder="body = body.replace(/ffffoooooo/gi, 'bbbaaarrr')"></textarea>
+</details>
+
         
         <details>
-          <summary>处理原始内容(链接)</summary>
-          <span>使用 <code>eval</code> 执行, 内容变量为 <code>body</code></span>
-          <textarea id="evalUrlori" v-model.lazy="evalUrlori" placeholder="URL 链接"></textarea>
-        </details>
+    <summary>Process Raw Content (Link)</summary>
+    <span>Use <code>eval</code> to execute. The content variable is <code>body</code>.</span>
+    <textarea id="evalUrlori" v-model.lazy="evalUrlori" placeholder="URL link"></textarea>
+</details>
+
 
         <details>
-          <summary>处理转换后的内容(链接)</summary>
-          <span>使用 <code>eval</code> 执行, 内容变量为 <code>body</code></span>
-          <textarea id="evalUrlmodi" v-model.lazy="evalUrlmodi" placeholder="URL 链接"></textarea>
-        </details>
-      </details>
+    <summary>Process Transformed Content (Link)</summary>
+    <span>Use <code>eval</code> to execute. The content variable is <code>body</code>.</span>
+    <textarea id="evalUrlmodi" v-model.lazy="evalUrlmodi" placeholder="URL link"></textarea>
+</details>
+
 
       <div>
-        <input type="checkbox" id="noNtf" v-model.lazy="noNtf" />
-        <label class="button-over" for="noNtf">关闭通知</label>
-      </div>
+    <input type="checkbox" id="noNtf" v-model.lazy="noNtf" />
+    <label class="button-over" for="noNtf">Disable Notifications</label>
+</div>
+
 
 
     </div>
@@ -1230,11 +1262,34 @@ const htmls = `
   const init = {
     // baseUrl: location.protocol + '//script.hub/',
     baseUrl: 'http://script.hub/',
-    inputTypes: [{value: 'remote-url', label: '来源链接'}, {value: 'local-text', label: '本地文本内容'}],
-    types: [{value: 'qx-rewrite', label: 'QX 重写'}, {value: 'surge-module', label: 'Surge 模块'}, {value: 'loon-plugin', label: 'Loon 插件'}, {value: 'rule-set', label: '规则集'}, {value: 'qx-script', label: 'QX 专属脚本'}, {value: 'plain-text', label: '纯文本'}],
-    type: 'qx-rewrite',
-    inputType: '',
-    targets: [{value: 'surge-module', label: 'Surge 模块', suffix: '.sgmodule'}, {value: 'stash-stoverride', label: 'Stash 覆写', suffix: '.stoverride'}, {value: 'shadowrocket-module', label: 'Shadowrocket 模块', suffix: '.sgmodule'}, {value: 'loon-plugin', label: 'Loon 插件', suffix: '.plugin'}, {value: 'loon-rule-set', label: '规则集(Loon)', suffix: '.list' }, {value: 'shadowrocket-rule-set', label: '规则集(Shadowrocket)', suffix: '.list' }, {value: 'surge-rule-set', label: '规则集(Surge)', suffix: '.list' }, {value: 'surge-domain-set', label: '域名集¹(Surge)', suffix: '.list' }, {value: 'surge-domain-set2', label: '无法转换为域名集¹的剩余规则集(Surge)', suffix: '.list' }, {value: 'stash-rule-set', label: '规则集(Stash)', suffix: '.list' }, {value: 'stash-domain-set', label: '域名集²(Stash)', suffix: '.list' }, {value: 'stash-domain-set2', label: '无法转换为域名集²的剩余规则集(Stash)', suffix: '.list' }, {value: 'surge-script', label: 'Surge 脚本(兼容)', suffix: '.js'}, {value: 'plain-text', label: '纯文本'}],
+    inputTypes: [
+    {value: 'remote-url', label: 'Source Link'},
+    {value: 'local-text', label: 'Local Text Content'}
+],
+types: [
+    {value: 'qx-rewrite', label: 'QX Rewrite'},
+    {value: 'surge-module', label: 'Surge Module'},
+    {value: 'loon-plugin', label: 'Loon Plugin'},
+    {value: 'rule-set', label: 'Rule Set'},
+    {value: 'qx-script', label: 'QX Exclusive Script'},
+    {value: 'plain-text', label: 'Plain Text'}
+],
+type: 'qx-rewrite',
+inputType: '',
+targets:[{value: 'surge-module', label: 'Surge Module', suffix: '.sgmodule'},
+        {value: 'stash-stoverride', label: 'Stash Override', suffix: '.stoverride'},
+        {value: 'shadowrocket-module', label: 'Shadowrocket Module', suffix: '.sgmodule'},
+        {value: 'loon-plugin', label: 'Loon Plugin', suffix: '.plugin'},
+        {value: 'loon-rule-set', label: 'Rule Set (Loon)', suffix: '.list'},
+        {value: 'shadowrocket-rule-set', label: 'Rule Set (Shadowrocket)', suffix: '.list'},
+        {value: 'surge-rule-set', label: 'Rule Set (Surge)', suffix: '.list'},
+        {value: 'surge-domain-set', label: 'Domain Set¹ (Surge)', suffix: '.list'},
+        {value: 'surge-domain-set2', label: 'Remaining Rule Set¹ that Cannot be Converted to Domain Set (Surge)', suffix: '.list'},
+        {value: 'stash-rule-set', label: 'Rule Set (Stash)', suffix: '.list'},
+        {value: 'stash-domain-set', label: 'Domain Set² (Stash)', suffix: '.list'},
+        {value: 'stash-domain-set2', label: 'Remaining Rule Set² that Cannot be Converted to Domain Set (Stash)', suffix: '.list'},
+        {value: 'surge-script', label: 'Surge Script (Compatible)', suffix: '.js'},
+        {value: 'plain-text', label: 'Plain Text'}],
     target: '',
     src: '',
     headers: '',
@@ -1358,7 +1413,7 @@ const htmls = `
   console.log("init", init)
 
   const envDom = document.createElement("small");
-  envDom.textContent = "运行环境: " + init.env;
+  envDom.textContent = "Execution Environment: " + init.env;
 
   document.querySelector('footer').appendChild(envDom);
 
@@ -1369,7 +1424,7 @@ const htmls = `
     methods: {
       reset(){
         const initData = { ...init }
-        this.resetInfo = '已重置'
+        this.resetInfo = 'Reset'
         Object.keys(initData).map(key => {
           if (key !== 'type' && key !== 'target' && key !== 'resetInfo') {
             this[key] = initData[key]
@@ -1391,7 +1446,7 @@ const htmls = `
           this.copyInfo = ''
         }, 2000)
         // if (this.isHttps) {
-        //   alert("✅ 已复制");
+        //   alert("✅ Copied");
         // }
       }
     },
@@ -1482,8 +1537,9 @@ const htmls = `
       },
       result: function () {
         if (this.src && this.src.startsWith('https://quantumult.app/x/open-app/add-resource')) {
-          return '⚠️⚠️⚠️ 你填入的是 QX 导入链接. 请安装 https://t.me/h5683577/211 然后在浏览器中预览资源 分别转换规则集和重写'
-        }
+    return '⚠️⚠️⚠️ You have entered a QX import link. Please install https://t.me/h5683577/211 and preview the resource in your browser to separately convert rule sets and rewrites.';
+}
+
 				const fields = {}
         if (this.jsc_all) {
           fields.jsc = '.'
@@ -1584,4 +1640,4 @@ function httpAPI(path = '', method = 'POST', body = null) {
 }
 
 // prettier-ignore
-function Env(t,e){class s{constructor(t){this.env=t}send(t,e="GET"){t="string"==typeof t?{url:t}:t;let s=this.get;return"POST"===e&&(s=this.post),new Promise(((e,r)=>{s.call(this,t,((t,s,a)=>{t?r(t):e(s)}))}))}get(t){return this.send.call(this.env,t)}post(t){return this.send.call(this.env,t,"POST")}}return new class{constructor(t,e){this.name=t,this.http=new s(this),this.data=null,this.dataFile="box.dat",this.logs=[],this.isMute=!1,this.isNeedRewrite=!1,this.logSeparator="\n",this.encoding="utf-8",Object.assign(this,e)}getEnv(){return"undefined"!=typeof $environment&&$environment["surge-version"]?"Surge":"undefined"!=typeof $environment&&$environment["stash-version"]?"Stash":"undefined"!=typeof module&&module.exports?"Node.js":"undefined"!=typeof $task?"Quantumult X":"undefined"!=typeof $loon?"Loon":"undefined"!=typeof $rocket?"Shadowrocket":void 0}isNode(){return"Node.js"===this.getEnv()}isQuanX(){return"Quantumult X"===this.getEnv()}isSurge(){return"Surge"===this.getEnv()}isLoon(){return"Loon"===this.getEnv()}isShadowrocket(){return"Shadowrocket"===this.getEnv()}isStash(){return"Stash"===this.getEnv()}toObj(t,e=null){try{return JSON.parse(t)}catch{return e}}toStr(t,e=null){try{return JSON.stringify(t)}catch{return e}}getjson(t,e){let s=e;const r=this.getdata(t);if(r)try{s=JSON.parse(this.getdata(t))}catch{}return s}setjson(t,e){try{return this.setdata(JSON.stringify(t),e)}catch{return!1}}getScript(t){return new Promise((e=>{this.get({url:t},((t,s,r)=>e(r)))}))}runScript(t,e){return new Promise((s=>{let r=this.getdata("@chavy_boxjs_userCfgs.httpapi");r=r?r.replace(/\n/g,"").trim():r;let a=this.getdata("@chavy_boxjs_userCfgs.httpapi_timeout");a=a?1*a:20,a=e&&e.timeout?e.timeout:a;const[o,i]=r.split("@"),n={url:`http://${i}/v1/scripting/evaluate`,body:{script_text:t,mock_type:"cron",timeout:a},headers:{"X-Key":o,Accept:"*/*"},timeout:a};this.post(n,((t,e,r)=>s(r)))})).catch((t=>this.logErr(t)))}loaddata(){if(!this.isNode())return{};{this.fs=this.fs?this.fs:require("fs"),this.path=this.path?this.path:require("path");const t=this.path.resolve(this.dataFile),e=this.path.resolve(process.cwd(),this.dataFile),s=this.fs.existsSync(t),r=!s&&this.fs.existsSync(e);if(!s&&!r)return{};{const r=s?t:e;try{return JSON.parse(this.fs.readFileSync(r))}catch(t){return{}}}}}writedata(){if(this.isNode()){this.fs=this.fs?this.fs:require("fs"),this.path=this.path?this.path:require("path");const t=this.path.resolve(this.dataFile),e=this.path.resolve(process.cwd(),this.dataFile),s=this.fs.existsSync(t),r=!s&&this.fs.existsSync(e),a=JSON.stringify(this.data);s?this.fs.writeFileSync(t,a):r?this.fs.writeFileSync(e,a):this.fs.writeFileSync(t,a)}}lodash_get(t,e,s){const r=e.replace(/\[(\d+)\]/g,".$1").split(".");let a=t;for(const t of r)if(a=Object(a)[t],void 0===a)return s;return a}lodash_set(t,e,s){return Object(t)!==t?t:(Array.isArray(e)||(e=e.toString().match(/[^.[\]]+/g)||[]),e.slice(0,-1).reduce(((t,s,r)=>Object(t[s])===t[s]?t[s]:t[s]=Math.abs(e[r+1])>>0==+e[r+1]?[]:{}),t)[e[e.length-1]]=s,t)}getdata(t){let e=this.getval(t);if(/^@/.test(t)){const[,s,r]=/^@(.*?)\.(.*?)$/.exec(t),a=s?this.getval(s):"";if(a)try{const t=JSON.parse(a);e=t?this.lodash_get(t,r,""):e}catch(t){e=""}}return e}setdata(t,e){let s=!1;if(/^@/.test(e)){const[,r,a]=/^@(.*?)\.(.*?)$/.exec(e),o=this.getval(r),i=r?"null"===o?null:o||"{}":"{}";try{const e=JSON.parse(i);this.lodash_set(e,a,t),s=this.setval(JSON.stringify(e),r)}catch(e){const o={};this.lodash_set(o,a,t),s=this.setval(JSON.stringify(o),r)}}else s=this.setval(t,e);return s}getval(t){switch(this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":return $persistentStore.read(t);case"Quantumult X":return $prefs.valueForKey(t);case"Node.js":return this.data=this.loaddata(),this.data[t];default:return this.data&&this.data[t]||null}}setval(t,e){switch(this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":return $persistentStore.write(t,e);case"Quantumult X":return $prefs.setValueForKey(t,e);case"Node.js":return this.data=this.loaddata(),this.data[e]=t,this.writedata(),!0;default:return this.data&&this.data[e]||null}}initGotEnv(t){this.got=this.got?this.got:require("got"),this.cktough=this.cktough?this.cktough:require("tough-cookie"),this.ckjar=this.ckjar?this.ckjar:new this.cktough.CookieJar,t&&(t.headers=t.headers?t.headers:{},void 0===t.headers.Cookie&&void 0===t.cookieJar&&(t.cookieJar=this.ckjar))}get(t,e=(()=>{})){switch(t.headers&&(delete t.headers["Content-Type"],delete t.headers["Content-Length"],delete t.headers["content-type"],delete t.headers["content-length"]),t.params&&(t.url+="?"+this.queryStr(t.params)),this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":default:this.isSurge()&&this.isNeedRewrite&&(t.headers=t.headers||{},Object.assign(t.headers,{"X-Surge-Skip-Scripting":!1})),$httpClient.get(t,((t,s,r)=>{!t&&s&&(s.body=r,s.statusCode=s.status?s.status:s.statusCode,s.status=s.statusCode),e(t,s,r)}));break;case"Quantumult X":this.isNeedRewrite&&(t.opts=t.opts||{},Object.assign(t.opts,{hints:!1})),$task.fetch(t).then((t=>{const{statusCode:s,statusCode:r,headers:a,body:o,bodyBytes:i}=t;e(null,{status:s,statusCode:r,headers:a,body:o,bodyBytes:i},o,i)}),(t=>e(t&&t.error||"UndefinedError")));break;case"Node.js":let s=require("iconv-lite");this.initGotEnv(t),this.got(t).on("redirect",((t,e)=>{try{if(t.headers["set-cookie"]){const s=t.headers["set-cookie"].map(this.cktough.Cookie.parse).toString();s&&this.ckjar.setCookieSync(s,null),e.cookieJar=this.ckjar}}catch(t){this.logErr(t)}})).then((t=>{const{statusCode:r,statusCode:a,headers:o,rawBody:i}=t,n=s.decode(i,this.encoding);e(null,{status:r,statusCode:a,headers:o,rawBody:i,body:n},n)}),(t=>{const{message:r,response:a}=t;e(r,a,a&&s.decode(a.rawBody,this.encoding))}))}}post(t,e=(()=>{})){const s=t.method?t.method.toLocaleLowerCase():"post";switch(t.body&&t.headers&&!t.headers["Content-Type"]&&!t.headers["content-type"]&&(t.headers["content-type"]="application/x-www-form-urlencoded"),t.headers&&(delete t.headers["Content-Length"],delete t.headers["content-length"]),this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":default:this.isSurge()&&this.isNeedRewrite&&(t.headers=t.headers||{},Object.assign(t.headers,{"X-Surge-Skip-Scripting":!1})),$httpClient[s](t,((t,s,r)=>{!t&&s&&(s.body=r,s.statusCode=s.status?s.status:s.statusCode,s.status=s.statusCode),e(t,s,r)}));break;case"Quantumult X":;t.method=s,this.isNeedRewrite&&(t.opts=t.opts||{},Object.assign(t.opts,{hints:!1})),$task.fetch(t).then((t=>{const{statusCode:s,statusCode:r,headers:a,body:o,bodyBytes:i}=t;e(null,{status:s,statusCode:r,headers:a,body:o,bodyBytes:i},o,i)}),(t=>e(t&&t.error||"UndefinedError")));break;case"Node.js":let r=require("iconv-lite");this.initGotEnv(t);const{url:a,...o}=t;this.got[s](a,o).then((t=>{const{statusCode:s,statusCode:a,headers:o,rawBody:i}=t,n=r.decode(i,this.encoding);e(null,{status:s,statusCode:a,headers:o,rawBody:i,body:n},n)}),(t=>{const{message:s,response:a}=t;e(s,a,a&&r.decode(a.rawBody,this.encoding))}))}}time(t,e=null){const s=e?new Date(e):new Date;let r={"M+":s.getMonth()+1,"d+":s.getDate(),"H+":s.getHours(),"m+":s.getMinutes(),"s+":s.getSeconds(),"q+":Math.floor((s.getMonth()+3)/3),S:s.getMilliseconds()};/(y+)/.test(t)&&(t=t.replace(RegExp.$1,(s.getFullYear()+"").substr(4-RegExp.$1.length)));for(let e in r)new RegExp("("+e+")").test(t)&&(t=t.replace(RegExp.$1,1==RegExp.$1.length?r[e]:("00"+r[e]).substr((""+r[e]).length)));return t}queryStr(t){let e="";for(const s in t){let r=t[s];null!=r&&""!==r&&("object"==typeof r&&(r=JSON.stringify(r)),e+=`${s}=${r}&`)}return e=e.substring(0,e.length-1),e}msg(e=t,s="",r="",a){const o=t=>{switch(typeof t){case void 0:return t;case"string":switch(this.getEnv()){case"Surge":case"Stash":default:return{url:t};case"Loon":case"Shadowrocket":return t;case"Quantumult X":return{"open-url":t};case"Node.js":return}case"object":switch(this.getEnv()){case"Surge":case"Stash":case"Shadowrocket":default:{let e=t.url||t.openUrl||t["open-url"];return{url:e}}case"Loon":{let e=t.openUrl||t.url||t["open-url"],s=t.mediaUrl||t["media-url"];return{openUrl:e,mediaUrl:s}}case"Quantumult X":{let e=t["open-url"]||t.url||t.openUrl,s=t["media-url"]||t.mediaUrl,r=t["update-pasteboard"]||t.updatePasteboard;return{"open-url":e,"media-url":s,"update-pasteboard":r}}case"Node.js":return}default:return}};if(!this.isMute)switch(this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":default:$notification.post(e,s,r,o(a));break;case"Quantumult X":$notify(e,s,r,o(a));break;case"Node.js":}if(!this.isMuteLog){let t=["","==============📣系统通知📣=============="];t.push(e),s&&t.push(s),r&&t.push(r),console.log(t.join("\n")),this.logs=this.logs.concat(t)}}log(...t){t.length>0&&(this.logs=[...this.logs,...t]),console.log(t.join(this.logSeparator))}logErr(t,e){switch(this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":case"Quantumult X":default:this.log("",`❗️${this.name}, 错误!`,t);break;case"Node.js":this.log("",`❗️${this.name}, 错误!`,t.stack)}}wait(t){return new Promise((e=>setTimeout(e,t)))}done(t={}){switch(this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":case"Quantumult X":default:$done(t);break;case"Node.js":process.exit(1)}}}(t,e)}
+function Env(t,e){class s{constructor(t){this.env=t}send(t,e="GET"){t="string"==typeof t?{url:t}:t;let s=this.get;return"POST"===e&&(s=this.post),new Promise(((e,r)=>{s.call(this,t,((t,s,a)=>{t?r(t):e(s)}))}))}get(t){return this.send.call(this.env,t)}post(t){return this.send.call(this.env,t,"POST")}}return new class{constructor(t,e){this.name=t,this.http=new s(this),this.data=null,this.dataFile="box.dat",this.logs=[],this.isMute=!1,this.isNeedRewrite=!1,this.logSeparator="\n",this.encoding="utf-8",Object.assign(this,e)}getEnv(){return"undefined"!=typeof $environment&&$environment["surge-version"]?"Surge":"undefined"!=typeof $environment&&$environment["stash-version"]?"Stash":"undefined"!=typeof module&&module.exports?"Node.js":"undefined"!=typeof $task?"Quantumult X":"undefined"!=typeof $loon?"Loon":"undefined"!=typeof $rocket?"Shadowrocket":void 0}isNode(){return"Node.js"===this.getEnv()}isQuanX(){return"Quantumult X"===this.getEnv()}isSurge(){return"Surge"===this.getEnv()}isLoon(){return"Loon"===this.getEnv()}isShadowrocket(){return"Shadowrocket"===this.getEnv()}isStash(){return"Stash"===this.getEnv()}toObj(t,e=null){try{return JSON.parse(t)}catch{return e}}toStr(t,e=null){try{return JSON.stringify(t)}catch{return e}}getjson(t,e){let s=e;const r=this.getdata(t);if(r)try{s=JSON.parse(this.getdata(t))}catch{}return s}setjson(t,e){try{return this.setdata(JSON.stringify(t),e)}catch{return!1}}getScript(t){return new Promise((e=>{this.get({url:t},((t,s,r)=>e(r)))}))}runScript(t,e){return new Promise((s=>{let r=this.getdata("@chavy_boxjs_userCfgs.httpapi");r=r?r.replace(/\n/g,"").trim():r;let a=this.getdata("@chavy_boxjs_userCfgs.httpapi_timeout");a=a?1*a:20,a=e&&e.timeout?e.timeout:a;const[o,i]=r.split("@"),n={url:`http://${i}/v1/scripting/evaluate`,body:{script_text:t,mock_type:"cron",timeout:a},headers:{"X-Key":o,Accept:"*/*"},timeout:a};this.post(n,((t,e,r)=>s(r)))})).catch((t=>this.logErr(t)))}loaddata(){if(!this.isNode())return{};{this.fs=this.fs?this.fs:require("fs"),this.path=this.path?this.path:require("path");const t=this.path.resolve(this.dataFile),e=this.path.resolve(process.cwd(),this.dataFile),s=this.fs.existsSync(t),r=!s&&this.fs.existsSync(e);if(!s&&!r)return{};{const r=s?t:e;try{return JSON.parse(this.fs.readFileSync(r))}catch(t){return{}}}}}writedata(){if(this.isNode()){this.fs=this.fs?this.fs:require("fs"),this.path=this.path?this.path:require("path");const t=this.path.resolve(this.dataFile),e=this.path.resolve(process.cwd(),this.dataFile),s=this.fs.existsSync(t),r=!s&&this.fs.existsSync(e),a=JSON.stringify(this.data);s?this.fs.writeFileSync(t,a):r?this.fs.writeFileSync(e,a):this.fs.writeFileSync(t,a)}}lodash_get(t,e,s){const r=e.replace(/\[(\d+)\]/g,".$1").split(".");let a=t;for(const t of r)if(a=Object(a)[t],void 0===a)return s;return a}lodash_set(t,e,s){return Object(t)!==t?t:(Array.isArray(e)||(e=e.toString().match(/[^.[\]]+/g)||[]),e.slice(0,-1).reduce(((t,s,r)=>Object(t[s])===t[s]?t[s]:t[s]=Math.abs(e[r+1])>>0==+e[r+1]?[]:{}),t)[e[e.length-1]]=s,t)}getdata(t){let e=this.getval(t);if(/^@/.test(t)){const[,s,r]=/^@(.*?)\.(.*?)$/.exec(t),a=s?this.getval(s):"";if(a)try{const t=JSON.parse(a);e=t?this.lodash_get(t,r,""):e}catch(t){e=""}}return e}setdata(t,e){let s=!1;if(/^@/.test(e)){const[,r,a]=/^@(.*?)\.(.*?)$/.exec(e),o=this.getval(r),i=r?"null"===o?null:o||"{}":"{}";try{const e=JSON.parse(i);this.lodash_set(e,a,t),s=this.setval(JSON.stringify(e),r)}catch(e){const o={};this.lodash_set(o,a,t),s=this.setval(JSON.stringify(o),r)}}else s=this.setval(t,e);return s}getval(t){switch(this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":return $persistentStore.read(t);case"Quantumult X":return $prefs.valueForKey(t);case"Node.js":return this.data=this.loaddata(),this.data[t];default:return this.data&&this.data[t]||null}}setval(t,e){switch(this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":return $persistentStore.write(t,e);case"Quantumult X":return $prefs.setValueForKey(t,e);case"Node.js":return this.data=this.loaddata(),this.data[e]=t,this.writedata(),!0;default:return this.data&&this.data[e]||null}}initGotEnv(t){this.got=this.got?this.got:require("got"),this.cktough=this.cktough?this.cktough:require("tough-cookie"),this.ckjar=this.ckjar?this.ckjar:new this.cktough.CookieJar,t&&(t.headers=t.headers?t.headers:{},void 0===t.headers.Cookie&&void 0===t.cookieJar&&(t.cookieJar=this.ckjar))}get(t,e=(()=>{})){switch(t.headers&&(delete t.headers["Content-Type"],delete t.headers["Content-Length"],delete t.headers["content-type"],delete t.headers["content-length"]),t.params&&(t.url+="?"+this.queryStr(t.params)),this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":default:this.isSurge()&&this.isNeedRewrite&&(t.headers=t.headers||{},Object.assign(t.headers,{"X-Surge-Skip-Scripting":!1})),$httpClient.get(t,((t,s,r)=>{!t&&s&&(s.body=r,s.statusCode=s.status?s.status:s.statusCode,s.status=s.statusCode),e(t,s,r)}));break;case"Quantumult X":this.isNeedRewrite&&(t.opts=t.opts||{},Object.assign(t.opts,{hints:!1})),$task.fetch(t).then((t=>{const{statusCode:s,statusCode:r,headers:a,body:o,bodyBytes:i}=t;e(null,{status:s,statusCode:r,headers:a,body:o,bodyBytes:i},o,i)}),(t=>e(t&&t.error||"UndefinedError")));break;case"Node.js":let s=require("iconv-lite");this.initGotEnv(t),this.got(t).on("redirect",((t,e)=>{try{if(t.headers["set-cookie"]){const s=t.headers["set-cookie"].map(this.cktough.Cookie.parse).toString();s&&this.ckjar.setCookieSync(s,null),e.cookieJar=this.ckjar}}catch(t){this.logErr(t)}})).then((t=>{const{statusCode:r,statusCode:a,headers:o,rawBody:i}=t,n=s.decode(i,this.encoding);e(null,{status:r,statusCode:a,headers:o,rawBody:i,body:n},n)}),(t=>{const{message:r,response:a}=t;e(r,a,a&&s.decode(a.rawBody,this.encoding))}))}}post(t,e=(()=>{})){const s=t.method?t.method.toLocaleLowerCase():"post";switch(t.body&&t.headers&&!t.headers["Content-Type"]&&!t.headers["content-type"]&&(t.headers["content-type"]="application/x-www-form-urlencoded"),t.headers&&(delete t.headers["Content-Length"],delete t.headers["content-length"]),this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":default:this.isSurge()&&this.isNeedRewrite&&(t.headers=t.headers||{},Object.assign(t.headers,{"X-Surge-Skip-Scripting":!1})),$httpClient[s](t,((t,s,r)=>{!t&&s&&(s.body=r,s.statusCode=s.status?s.status:s.statusCode,s.status=s.statusCode),e(t,s,r)}));break;case"Quantumult X":;t.method=s,this.isNeedRewrite&&(t.opts=t.opts||{},Object.assign(t.opts,{hints:!1})),$task.fetch(t).then((t=>{const{statusCode:s,statusCode:r,headers:a,body:o,bodyBytes:i}=t;e(null,{status:s,statusCode:r,headers:a,body:o,bodyBytes:i},o,i)}),(t=>e(t&&t.error||"UndefinedError")));break;case"Node.js":let r=require("iconv-lite");this.initGotEnv(t);const{url:a,...o}=t;this.got[s](a,o).then((t=>{const{statusCode:s,statusCode:a,headers:o,rawBody:i}=t,n=r.decode(i,this.encoding);e(null,{status:s,statusCode:a,headers:o,rawBody:i,body:n},n)}),(t=>{const{message:s,response:a}=t;e(s,a,a&&r.decode(a.rawBody,this.encoding))}))}}time(t,e=null){const s=e?new Date(e):new Date;let r={"M+":s.getMonth()+1,"d+":s.getDate(),"H+":s.getHours(),"m+":s.getMinutes(),"s+":s.getSeconds(),"q+":Math.floor((s.getMonth()+3)/3),S:s.getMilliseconds()};/(y+)/.test(t)&&(t=t.replace(RegExp.$1,(s.getFullYear()+"").substr(4-RegExp.$1.length)));for(let e in r)new RegExp("("+e+")").test(t)&&(t=t.replace(RegExp.$1,1==RegExp.$1.length?r[e]:("00"+r[e]).substr((""+r[e]).length)));return t}queryStr(t){let e="";for(const s in t){let r=t[s];null!=r&&""!==r&&("object"==typeof r&&(r=JSON.stringify(r)),e+=`${s}=${r}&`)}return e=e.substring(0,e.length-1),e}msg(e=t,s="",r="",a){const o=t=>{switch(typeof t){case void 0:return t;case"string":switch(this.getEnv()){case"Surge":case"Stash":default:return{url:t};case"Loon":case"Shadowrocket":return t;case"Quantumult X":return{"open-url":t};case"Node.js":return}case"object":switch(this.getEnv()){case"Surge":case"Stash":case"Shadowrocket":default:{let e=t.url||t.openUrl||t["open-url"];return{url:e}}case"Loon":{let e=t.openUrl||t.url||t["open-url"],s=t.mediaUrl||t["media-url"];return{openUrl:e,mediaUrl:s}}case"Quantumult X":{let e=t["open-url"]||t.url||t.openUrl,s=t["media-url"]||t.mediaUrl,r=t["update-pasteboard"]||t.updatePasteboard;return{"open-url":e,"media-url":s,"update-pasteboard":r}}case"Node.js":return}default:return}};if(!this.isMute)switch(this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":default:$notification.post(e,s,r,o(a));break;case"Quantumult X":$notify(e,s,r,o(a));break;case"Node.js":}if(!this.isMuteLog){let t=["","==============📣System Notification📣=============="];t.push(e),s&&t.push(s),r&&t.push(r),console.log(t.join("\n")),this.logs=this.logs.concat(t)}}log(...t){t.length>0&&(this.logs=[...this.logs,...t]),console.log(t.join(this.logSeparator))}logErr(t,e){switch(this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":case"Quantumult X":default:this.log("",`❗️${this.name}, Error!`,t);break;case"Node.js":this.log("",`❗️${this.name}, Error!`,t.stack)}}wait(t){return new Promise((e=>setTimeout(e,t)))}done(t={}){switch(this.getEnv()){case"Surge":case"Loon":case"Stash":case"Shadowrocket":case"Quantumult X":default:$done(t);break;case"Node.js":process.exit(1)}}}(t,e)}
