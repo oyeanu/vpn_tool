@@ -1,5 +1,3 @@
-Here’s the translation:
-
 /***************************
 Supports parsing QX rewrites, Surge modules, Loon plugins to Surge, Shadowrocket, Loon, and Stash.
 
