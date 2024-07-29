@@ -7,6 +7,6 @@
 #!date = 2024-07-01 01:05:12
 
 [Script]
-generic script-path = https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Resource/Script/Node_detection_tool/CloudflareSpeedtest.js, timeout = 10, tag = Speed Test, img-url = speedometer.system
+# generic script-path = https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Resource/Script/Node_detection_tool/CloudflareSpeedtest.js, timeout = 10, tag = Speed Test, img-url = speedometer.system
 generic script-path = https://github.com/oyeanu/vpn_tool/raw/main/vpn_tool/Loon/Scripts/LocationDetection.js, timeout = 10, tag = Geolocation Query, img-url = location.circle.system
 generic script-path = https://github.com/oyeanu/vpn_tool/raw/main/vpn_tool/Loon/Scripts/NodeUnlockDetection.js, timeout = 20, tag = Node unlock Query, img-url = play.circle.system
