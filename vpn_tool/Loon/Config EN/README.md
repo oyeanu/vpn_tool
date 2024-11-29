@@ -2,7 +2,7 @@
 
 Applicable Software: [Loon](https://apps.apple.com/app/loon/id1373567447)
 
-Configuration Author: [iKeLee🅥](https://t.me/iKeLee)
+Configuration Author: [可莉🅥](https://t.me/iKeLee)
 
 Update Date: Refer to the configuration file
 
@@ -15,12 +15,19 @@ Applicable Version: Latest version on App Store
 ##### You should back up your current configuration file before importing: click [Configuration] → [Export] → [Save to "Files"]
 
 
-### About Configuration File
+### Inventory of Configuration Files
 
+[Auto-Select config](https://www.nsloon.com/openloon/import?sub=https://kelee.one/Tool/Loon/Config/en-US/Loon_Auto-Select_Configuration_By_iKeLee.conf) - This configuration file automatically selects the node with the lowest network latency, eliminating the need for manual intervention. The entire process is fully automated.
 
-### Simple config 
-This configuration file is designed for simplicity, featuring a single policy group. Its straightforward nature allows for effortless setup and immediate usability.
+[Advanced config](https://www.nsloon.com/openloon/import?sub=https://kelee.one/Tool/Loon/Config/en-US/Loon_Advanced_Configuration_By_iKeLee.conf) - This configuration file enables you to automatically select the node with the lowest network latency, eliminating the need for manual intervention. The entire process is fully automated. When connected to a router equipped with a transparent proxy, your Loon will establish connections using the "DIRECT" policy, allowing direct access to restricted websites through your router. Conversely, when using other networks, access to these websites will be achieved through Loon's own proxy mode. This prevents potential double-proxy situations that might arise when connected to a router already employing a transparent proxy.
 
+[Manual node selection config](https://www.nsloon.com/openloon/import?sub=https://kelee.one/Tool/Loon/Config/en-US/Loon_Selection_Configuration_By_iKeLee.conf) - This configuration file requires you to manually select the desired proxy server. It does not automatically switch servers if a failure occurs, so your intervention is needed to choose an available alternative.
+
+[Simple config](https://www.nsloon.com/openloon/import?sub=https://kelee.one/Tool/Loon/Config/en-US/Loon_Simple_Configuration_By_iKeLee.conf) - This configuration file is designed for simplicity, featuring a single policy group. Its straightforward nature allows for effortless setup and immediate usability.
+
+[Basic config](https://www.nsloon.com/openloon/import?sub=https://kelee.one/Tool/Loon/Config/en-US/Loon_Basic_Configuration_By_iKeLee.conf) - This configuration file can serve as a foundation for creating your own custom configurations. It doesn't include any policy groups and is primarily intended for troubleshooting errors in your own configurations and as a starting point for building your personalized setup.
+
+[tvOS config](https://www.nsloon.com/openloon/import?sub=https://kelee.one/Tool/Loon/Config/en-US/Loon_tvOS_Configuration_By_iKeLee.conf) - This configuration file is specifically designed for tvOS. Some policy groups will automatically select the proxy server with the lowest network latency, while others require you to manually choose a server.
 
 ### Usage Instructions
 
