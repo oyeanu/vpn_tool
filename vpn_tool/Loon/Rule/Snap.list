@@ -1,12 +1,26 @@
-# NAME: Snap
-# AUTHOR: blackmatrix7
-# REPO: https://github.com/blackmatrix7/ios_rule_script
-# UPDATED: 2024-07-03 16:16:55
-# DOMAIN-SUFFIX: 6
-# TOTAL: 6
+# NAME: SnapChat
+# AUTHOR: ANSAR
+
+# UPDATED: 2025-24-03 05:46
+# DOMAIN-SUFFIX: 19
+# TOTAL: 19
+# Main Snapchat domains
+DOMAIN-SUFFIX,snapchat.com
+DOMAIN-SUFFIX,sc-jpl.com
 DOMAIN-SUFFIX,sc-cdn.net
 DOMAIN-SUFFIX,snap-dev.net
-DOMAIN-SUFFIX,snap.com
 DOMAIN-SUFFIX,snapads.com
-DOMAIN-SUFFIX,snapchat.com
-DOMAIN-SUFFIX,snapkit.co
+DOMAIN-SUFFIX,snapkit.com
+DOMAIN-SUFFIX,story.snapchat.com
+DOMAIN-SUFFIX,app.snapchat.com
+DOMAIN-SUFFIX,web.snapchat.com
+DOMAIN-SUFFIX,accounts.snapchat.com
+DOMAIN-SUFFIX,business.snapchat.com
+DOMAIN-SUFFIX,support.snapchat.com
+DOMAIN-SUFFIX,sc-analytics.app
+DOMAIN-SUFFIX,adsapi.snapchat.com
+DOMAIN-SUFFIX,tr.snapchat.com
+DOMAIN-SUFFIX,snap-content.com
+DOMAIN-SUFFIX,snap-storage.com
+DOMAIN-SUFFIX,bitmoji.com
+DOMAIN-SUFFIX,bitmoji.api.snapchat.com
