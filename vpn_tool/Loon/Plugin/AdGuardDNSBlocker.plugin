@@ -1,0 +1,7 @@
+
+[Plugin]
+# Name: AdGuard DNS Filter
+# Description: Block ads, trackers, malware using AdGuard's official DNS filter list
+# Author: ChatGPT
+
+AdGuard-DNS-Blocker = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt, interval=86400
