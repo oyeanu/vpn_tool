@@ -1,0 +1,16 @@
+
+[Remote Script]
+# AdGuard DNS Filter - Base
+AdGuard-Base-Filter = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt, interval=86400
+
+# Mobile Ads Filter
+AdGuard-Mobile-Ads = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter_mobile.txt, interval=86400
+
+# Tracking Protection
+AdGuard-Tracking-Protection = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter_tracking.txt, interval=86400
+
+# Social Media Filter
+AdGuard-Social-Media = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter_social.txt, interval=86400
+
+# DNS Filter (adware, malware, phishing)
+AdGuard-DNS-Filter = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter_dns.txt, interval=86400
