@@ -1,16 +1,52 @@
+#!name = Ultimate Ad & Tracker Blocker
+#!desc = Blocks ads, analytics, and social trackers across apps and websites
+#!author = ChatGPT + Community Filters
+#!icon = https://raw.githubusercontent.com/AdguardTeam/AdGuardBrowserExtension/master/images/icons/128.png
+#!date = 2025-04-11
+
+[Rule]
+# Dummy rule to activate the plugin in Loon
+DOMAIN-SUFFIX, dummy.blocker.test, REJECT
 
 [Remote Script]
-# AdGuard DNS Filter - Base
-AdGuard-Base-Filter = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt, interval=86400
+# AdGuard DNS Filters
+AdGuard-Base = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt, interval=86400
+AdGuard-Mobile = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter_mobile.txt, interval=86400
+AdGuard-Tracking = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter_tracking.txt, interval=86400
+AdGuard-Social = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter_social.txt, interval=86400
+AdGuard-DNS = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter_dns.txt, interval=86400
 
-# Mobile Ads Filter
-AdGuard-Mobile-Ads = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter_mobile.txt, interval=86400
+[Rewrite]
+# Google Ads & Analytics
+^https?:\/\/(www|ssl)\.google-analytics\.com\/.*$ reject
+^https?:\/\/pagead2\.googlesyndication\.com\/.*$ reject
+^https?:\/\/adservice\.google\.com\/.*$ reject
+^https?:\/\/ads\.youtube\.com\/.*$ reject
+^https?:\/\/stats\.g\.doubleclick\.net\/.*$ reject
 
-# Tracking Protection
-AdGuard-Tracking-Protection = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter_tracking.txt, interval=86400
+# Facebook & Meta
+^https?:\/\/graph\.facebook\.com\/.*$ reject
+^https?:\/\/connect\.facebook\.net\/.*$ reject
+^https?:\/\/pixel\.facebook\.com\/.*$ reject
 
-# Social Media Filter
-AdGuard-Social-Media = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter_social.txt, interval=86400
+# TikTok & ByteDance
+^https?:\/\/analytics\.tiktok\.com\/.*$ reject
+^https?:\/\/ads\.tiktok\.com\/.*$ reject
+^https?:\/\/business-api\.tiktok\.com\/.*$ reject
+^https?:\/\/log\.byteoversea\.com\/.*$ reject
 
-# DNS Filter (adware, malware, phishing)
-AdGuard-DNS-Filter = type=http, behavior=dns, path=https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter_dns.txt, interval=86400
+# Twitter, Pinterest, LinkedIn
+^https?:\/\/ads-api\.twitter\.com\/.*$ reject
+^https?:\/\/log\.pinterest\.com\/.*$ reject
+^https?:\/\/ads\.linkedin\.com\/.*$ reject
+
+# Analytics Tools
+^https?:\/\/script\.hotjar\.com\/.*$ reject
+^https?:\/\/cdn\.mouseflow\.com\/.*$ reject
+^https?:\/\/api\.mouseflow\.com\/.*$ reject
+^https?:\/\/.*\.luckyorange\.com\/.*$ reject
+^https?:\/\/.*\.sentry-cdn\.com\/.*$ reject
+^https?:\/\/.*\.bugsnag\.com\/.*$ reject
+
+[MITM]
+hostname = *.google-analytics.com, *.googlesyndication.com, ads.youtube.com, adservice.google.com, stats.g.doubleclick.net, pixel.facebook.com, connect.facebook.net, graph.facebook.com, analytics.tiktok.com, ads.tiktok.com, business-api.tiktok.com, log.byteoversea.com, ads-api.twitter.com, log.pinterest.com, ads.linkedin.com, script.hotjar.com, cdn.mouseflow.com, api.mouseflow.com, *.luckyorange.com, *.sentry-cdn.com, *.bugsnag.com
