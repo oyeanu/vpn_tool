@@ -1,0 +1,31 @@
+[Rule]
+
+# Block known ad/tracking domains
+
+DOMAIN-SUFFIX,[admob.com](http://admob.com/),REJECT
+DOMAIN-SUFFIX,[doubleclick.net](http://doubleclick.net/),REJECT
+DOMAIN-SUFFIX,[googlesyndication.com](http://googlesyndication.com/),REJECT
+DOMAIN-SUFFIX,[google-analytics.com](http://google-analytics.com/),REJECT
+DOMAIN-SUFFIX,[facebook.net](http://facebook.net/),REJECT
+DOMAIN-SUFFIX,[appsflyer.com](http://appsflyer.com/),REJECT
+DOMAIN-SUFFIX,[adjust.com](http://adjust.com/),REJECT
+DOMAIN-SUFFIX,[moatads.com](http://moatads.com/),REJECT
+DOMAIN-SUFFIX,[scorecardresearch.com](http://scorecardresearch.com/),REJECT
+DOMAIN-SUFFIX,tracking,REJECT
+
+# Send major services through DNS over HTTPS (optional prioritization)
+
+DOMAIN-SUFFIX,[cloudflare.com](http://cloudflare.com/),DNS
+DOMAIN-SUFFIX,[google.com](http://google.com/),DNS
+DOMAIN-SUFFIX,[nextdns.io](http://nextdns.io/),DNS
+
+# Optional: Send Chinese services direct to avoid slowdowns (customize regionally)
+
+DOMAIN-SUFFIX,[baidu.com](http://baidu.com/),DIRECT
+DOMAIN-SUFFIX,[qq.com](http://qq.com/),DIRECT
+DOMAIN-SUFFIX,[taobao.com](http://taobao.com/),DIRECT
+DOMAIN-SUFFIX,[alibaba.com](http://alibaba.com/),DIRECT
+
+# Default fallback
+
+FINAL,DNS
